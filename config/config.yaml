@@ -6,12 +6,12 @@ serverversion: 2.3.0-rc2
 #---------------Infrastructure configuration---------------------#
 etcd:
   etcdSchema: openim  #默认即可
-  etcdAddr: [ 127.0.0.1:2379 ] #单机部署时，默认即可
+  etcdAddr: [ 192.168.130.22:2379 ] #单机部署时，默认即可
 
 k8sMod: false #开启k8s模式 使用pod里面环境变量请求services调用服务 而并非etcd
 
 mysql:
-  dbMysqlAddress: [ 127.0.0.1:13306 ] #mysql地址 目前仅支持单机，默认即可
+  dbMysqlAddress: [ 192.168.130.22:13306 ] #mysql地址 目前仅支持单机，默认即可
   dbMysqlUserName: root #mysql用户名，建议修改
   dbMysqlPassword: openIM # mysql密码，建议修改
   dbMysqlDatabaseName: openIM_v2 #默认即可
@@ -23,7 +23,7 @@ mysql:
 
 mongo:
   dbUri: ""#当dbUri值不为空则直接使用该值
-  dbAddress: 127.0.0.1:37017  #单机时为mongo地址，使用分片集群时，为mongos地址 默认即可
+  dbAddress: 192.168.130.22:37017  #单机时为mongo地址，使用分片集群时，为mongos地址 默认即可
   dbDirect: false
   dbTimeout: 60
   dbDatabase: openIM  #mongo db 默认即可
@@ -34,7 +34,7 @@ mongo:
   dbRetainChatRecords: 3650 #mongo保存离线消息时间（天），根据需求修改
 
 redis:
-  dbAddress: [ 127.0.0.1:16379 ] #redis地址 单机时，填写一个地址即可，使用redis集群时候，填写集群中多个节点地址（主从地址都可以填写，增加容灾能力），默认即可
+  dbAddress: [ 192.168.130.22:16379 ] #redis地址 单机时，填写一个地址即可，使用redis集群时候，填写集群中多个节点地址（主从地址都可以填写，增加容灾能力），默认即可
   dbMaxIdle: 128
   dbMaxActive: 0
   dbIdleTimeout: 120
@@ -44,16 +44,16 @@ redis:
 
 kafka:
   ws2mschat:
-    addr: [ 127.0.0.1:9092 ] #kafka配置，默认即可
+    addr: [ 192.168.130.22:9093 ] #kafka配置，默认即可
     topic: "ws2ms_chat"
   ws2mschatoffline:
-    addr: [ 127.0.0.1:9092 ] #kafka配置，默认即可
+    addr: [ 192.168.130.22:9093 ] #kafka配置，默认即可
     topic: "ws2ms_chat_offline"
   msgtomongo:
-    addr: [ 127.0.0.1:9092 ] #kafka配置，默认即可
+    addr: [ 192.168.130.22:9093 ] #kafka配置，默认即可
     topic: "msg_to_mongo"
   ms2pschat:
-    addr: [ 127.0.0.1:9092 ] #kafka配置，默认即可
+    addr: [ 192.168.130.22:9093 ] #kafka配置，默认即可
     topic: "ms2ps_chat"
   consumergroupid:
     msgToTransfer: mongo
@@ -72,7 +72,7 @@ kafka:
 serverip: 0.0.0.0
 
 #作为rpc时，注册到etcd的地址，单机默认即可，如果是集群部署，需要修改（具体使用内网地址还是外网地址，要依情况而定，目的是api/gateway能访问到）
-rpcRegisterIP: 127.0.0.1
+rpcRegisterIP: 192.168.130.15
 #默认即可
 listenIP: 0.0.0.0
 
@@ -113,8 +113,8 @@ credential: #腾讯cos，发送图片、视频、文件时需要，请自行申�
     bucket: openim # 存储内容桶
     appBucket: app # 存储app的桶
     location: us-east-1
-    endpoint: http://127.0.0.1:10005 #minio外网ip 这个ip是给客户端访问的
-    endpointInner: http://127.0.0.1:10005 #minio内网地址 如果im server 可以通过内网访问到 minio就可以填写
+    endpoint: http://192.168.130.22:10005 #minio外网ip 这个ip是给客户端访问的
+    endpointInner: http://192.168.130.22:10005 #minio内网地址 如果im server 可以通过内网访问到 minio就可以填写
     endpointInnerEnable: true #是否启用minio内网地址 启用可以让桶初始化，IM server连接minio走内网地址访问
     accessKeyID: user12345
     secretAccessKey: key12345
@@ -131,7 +131,7 @@ credential: #腾讯cos，发送图片、视频、文件时需要，请自行申�
     OssRoleArn: "acs:ram::xxx:role/xxx"
 
 dtm:
-  serverURL: 127.0.0.1:10007
+  serverURL: 192.168.130.15:10007
 
 rpcport: #rpc服务端口 默认即可
   openImUserPort: [ 10110 ]
@@ -181,7 +181,7 @@ log:
   #日志级别 6表示全都打印，测试阶段建议设置为6
   remainLogLevel: 6
   elasticSearchSwitch: false
-  elasticSearchAddr: [ 127.0.0.1:9201 ]
+  elasticSearchAddr: [ 192.168.130.15:9201 ]
   elasticSearchUser: ""
   elasticSearchPassword: ""
 
@@ -271,7 +271,7 @@ iospush:
 
 callback:
   # callback url 需要自行更换callback url
-  callbackUrl : "http://127.0.0.1:8080/callback"
+  callbackUrl : "http://192.168.130.15:8080/callback"
   # 开启关闭操作前后回调的配置
   callbackBeforeSendSingleMsg:
     enable: false # 回调是否启用
@@ -729,7 +729,7 @@ demo:
     smtpAddr: "smtp.qq.com"
     smtpPort: 25   #需开放此端口 出口方向
   testDepartMentID: 001
-  imAPIURL: http://127.0.0.1:10002
+  imAPIURL: http://192.168.130.15:10002
 
 rtc:
   signalTimeout: 35
