@@ -17,11 +17,16 @@
 package crypto
 
 import (
+	"Open_IM/pkg/utils/crypto/ecies"
 	"bufio"
 	"bytes"
+	"crypto/aes"
 	"crypto/ecdsa"
 	"crypto/elliptic"
+	"crypto/hmac"
 	"crypto/rand"
+	"crypto/sha256"
+	"crypto/sha512"
 	"encoding/hex"
 	"errors"
 	"fmt"
@@ -288,14 +293,14 @@ func zeroBytes(bytes []byte) {
 // ===================================
 
 /**
- * return whith 0x04
+ * return whith 04
  */
 func Public(privateKey string) (publicKey []byte) {
 	var e ecdsa.PrivateKey
 	e.D, _ = new(big.Int).SetString(privateKey, 16)
 	e.PublicKey.Curve = secp256k1.S256()
 	e.PublicKey.X, e.PublicKey.Y = e.PublicKey.Curve.ScalarBaseMult(e.D.Bytes())
-	fmt.Printf("X: %d, Y: %d", e.PublicKey.X, e.PublicKey.Y)
+	// fmt.Printf("X: %d, Y: %d", e.PublicKey.X, e.PublicKey.Y)
 	return elliptic.Marshal(secp256k1.S256(), e.X, e.Y)
 }
 
@@ -314,8 +319,7 @@ func hexToPrivateKey(hexStr string) *ecdsa.PrivateKey {
 	priv.D = k
 	priv.PublicKey.X, priv.PublicKey.Y = curve.ScalarBaseMult(k.Bytes())
 	//this print can be used to verify if we got the same parameters as in Java version
-	fmt.Printf("X: %d, Y: %d", priv.PublicKey.X, priv.PublicKey.Y)
-	println()
+	// fmt.Printf("X: %d, Y: %d", priv.PublicKey.X, priv.PublicKey.Y)
 
 	return priv
 }
@@ -363,6 +367,9 @@ func GenerateSharedSecret(privKey ecdsa.PrivateKey, pubKey ecdsa.PublicKey) ([]b
 	// priv := privKey.(*PrivateKey)
 	// pub := pubKey.(*PublicKey)
 	k := (privKey.D).Bytes()
+	if pubKey.X == nil || pubKey.Y == nil {
+		return nil, errors.New("pubKey invalid")
+	}
 
 	x, _ := privKey.ScalarMult(pubKey.X, pubKey.Y, k)
 	return x.Bytes(), nil
@@ -374,19 +381,109 @@ func GenRandomBytes(size int) (blk []byte, err error) {
 	return
 }
 
-// publicKeyFrom without 0x04
-func Decrypt(privKey, encrypted, publicKeyFrom []byte) {
-	iv := encrypted[0:16]
-	fmt.Println(iv)
+func Encrypt(privKey string, pubKeyTo string, plaintext string) []byte {
+	prvKey := hexToPrivateKey(privKey)
+	pubKey := fromPublicKey(pubKeyTo)
+	// pubKeyBuff := elliptic.Marshal(secp256k1.S256(), pubKey.X, pubKey.Y)
+	// pubKeyBuff, _ := hex.DecodeString(pubKeyTo)
+	pubKeyBuff := Public(privKey)
+
+	shareKey, _ := GenerateSharedSecret(*prvKey, *pubKey)
+
+	hash := sha512.Sum512([]byte(shareKey))
+
+	iv, _ := GenRandomBytes(16)
+
+	// iv = []byte{186, 43, 16, 120, 107, 183, 38, 126, 245, 37, 21, 113, 16, 103, 185, 95}
+
+	encryptionKey := hash[0:32]
+	macKey := hash[32:]
+
+	ciphertext, _ := ecies.Ase256(plaintext, string(encryptionKey), string(iv), aes.BlockSize)
+
 	var buffer bytes.Buffer
-	buffer.Write([]byte("04"))
-	buffer.Write(publicKeyFrom)
-	ephemPubKeyEncoded := buffer.Bytes()
-	fmt.Println(ephemPubKeyEncoded)
-	// mac := encrypted[81:113]
-	// ciphertext := encrypted[113]
 
-	// ephemPubKey = fromPublicKey(string(ephemPubKeyEncoded))
+	buffer.Write(iv)
+	buffer.Write(pubKeyBuff)
+	ct, _ := hex.DecodeString(ciphertext)
 
+	buffer.Write(ct)
+
+	dataToMac := buffer.Bytes() // get b1+b2 result
+
+	// Create a new HMAC by defining the hash type and the key (as byte array)
+	h := hmac.New(sha256.New, macKey)
+
+	// Write Data to it
+	h.Write(dataToMac)
+
+	// Get result and encode as hexadecimal string
+	mac := hex.EncodeToString(h.Sum(nil))
+
+	var serializedCiphertextBuffer bytes.Buffer
+
+	serializedCiphertextBuffer.Write(iv)
+	serializedCiphertextBuffer.Write(pubKeyBuff)
+	macBuff, _ := hex.DecodeString(mac)
+
+	serializedCiphertextBuffer.Write(macBuff)
+	serializedCiphertextBuffer.Write(ct)
+
+	serializedCiphertext := serializedCiphertextBuffer.Bytes() // get b1+b2 result
+
+	// return hex.EncodeToString(serializedCiphertext)
+	return serializedCiphertext
+}
+
+// privKey string 2 byte
+// encrypted byte
+// publicKeyFrom with 04
+func Decrypt(privKey, encrypted, publicKeyFrom []byte) string {
+	iv := encrypted[0:16]
+
+	// var buffer bytes.Buffer
+	// buffer.Write([]byte("04"))
+	// buffer.Write(publicKeyFrom)
+	// ephemPubKeyEncoded := buffer.Bytes()
+
+	ephemPubKeyEncoded := publicKeyFrom
+	mac := encrypted[81:113]
+	ciphertext := encrypted[113:]
+
+	ephemPubKey := fromPublicKey(hex.EncodeToString(ephemPubKeyEncoded))
+
+	prvKey := hexToPrivateKey(string(privKey))
 	// px
+	shareKey, _ := GenerateSharedSecret(*prvKey, *ephemPubKey)
+
+	hash := sha512.Sum512([]byte(shareKey))
+
+	encryptionKey := hash[0:32]
+	macKey := hash[32:]
+
+	var macBuffer bytes.Buffer //Buffer是一个实现了读写方法的可变大小的字节缓冲
+
+	macBuffer.Write(iv)
+	macBuffer.Write(ephemPubKeyEncoded)
+	macBuffer.Write(ciphertext)
+	dataToMac := macBuffer.Bytes()
+
+	// Create a new HMAC by defining the hash type and the key (as byte array)
+	h := hmac.New(sha256.New, macKey)
+
+	// Write Data to it
+	h.Write(dataToMac)
+
+	// Get result and encode as hexadecimal string
+	computedMacBuff := h.Sum(nil)
+
+	if !bytes.Equal(computedMacBuff, mac) {
+		fmt.Println("MAC mismatch")
+		return ""
+	}
+
+	plaintext := ecies.Ase256Decode(hex.EncodeToString(ciphertext), string(encryptionKey), string(iv))
+
+	return plaintext
+
 }

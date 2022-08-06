@@ -19,36 +19,22 @@ func TestEncrypt(t *testing.T) {
 	fmt.Println("publicKey: \t", fmt.Sprintf("%x", pubKeyBuff))
 
 	// https://github.com/wsddn/go-ecdh/blob/48726bab92085232373de4ec5c51ce7b441c63a0/elliptic.go#L10
-	// crypto.PrivateKey
-
-	// elliptic.Curve.ScalarMult()
-
-	// prv2 = ecies.ImportECDSA(PRIVATE)
-	// b := []byte(PRIVATE)
-	// var prvKey, err = HexToECDSA(PRIVATE)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	// fmt.Println("prvKey: \t", prvKey)
 
 	var prvKey = hexToPrivateKey(PRIVATE)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	fmt.Println("prvKey: \t", prvKey)
+
+	// fmt.Println("prvKey: \t", prvKey)
 
 	var prvKey2 = hexToPrivateKey(PRIVATE2)
-	fmt.Println("prvKey2: \t", prvKey2)
+	// fmt.Println("prvKey2: \t", prvKey2)
 
-	// var pubKey2, err2 = HexToECDSA(pubKey)
-	// if err2 != nil {
-	// 	fmt.Println(err2)
-	// }
-	// fmt.Println("pubKey2: \t", pubKey2)
+	// const PUBLIC = "04bc3c5053c9d3143861eb1e8322d268c1da5c3aa2b5a42343dfcdba9a0317a1ee866a0d2834c69325d2a72ff8aad310395c178903b3b4719cab86736851889dcf"
+	// pubKey4 := fromPublicKey(PUBLIC)
 
-	pubKey4 := fromPublicKey("0x04bc3c5053c9d3143861eb1e8322d268c1da5c3aa2b5a42343dfcdba9a0317a1ee866a0d2834c69325d2a72ff8aad310395c178903b3b4719cab86736851889dcf")
+	// fmt.Println("pubKey4: \t", pubKey4)
 
-	fmt.Println("pubKey4: \t", pubKey4)
+	// pubKey41, _ := UnmarshalPubkey([]byte(PUBLIC))
+
+	// fmt.Println("pubKey41: \t", pubKey41)
 
 	pubKey := prvKey.PublicKey
 	pubKey2 := prvKey2.PublicKey
@@ -80,7 +66,7 @@ func TestEncrypt(t *testing.T) {
 	// iv = []byte("97790e46cf346320ad5c6bf0234f3b65")
 	iv = []byte{186, 43, 16, 120, 107, 183, 38, 126, 245, 37, 21, 113, 16, 103, 185, 95}
 
-	const plaintext = "hello"
+	const plaintext = "hello world"
 	encryptionKey := hash[0:32]
 	fmt.Println("encryptionKey: \t", fmt.Sprintf("%x", encryptionKey))
 	macKey := hash[32:]
@@ -103,7 +89,7 @@ func TestEncrypt(t *testing.T) {
 	}
 	buffer.Write(ct)
 
-	dataToMac := buffer.Bytes() //得到了b1+b2的结果
+	dataToMac := buffer.Bytes()
 
 	fmt.Println("dataToMac: \t", fmt.Sprintf("%x", dataToMac))
 
@@ -118,7 +104,7 @@ func TestEncrypt(t *testing.T) {
 
 	fmt.Println("mac: " + mac)
 
-	var serializedCiphertextBuffer bytes.Buffer //Buffer是一个实现了读写方法的可变大小的字节缓冲
+	var serializedCiphertextBuffer bytes.Buffer
 
 	serializedCiphertextBuffer.Write(iv)
 	serializedCiphertextBuffer.Write(pubKeyBuff)
@@ -130,13 +116,36 @@ func TestEncrypt(t *testing.T) {
 	serializedCiphertextBuffer.Write(macBuff)
 	serializedCiphertextBuffer.Write(ct)
 
-	serializedCiphertext := serializedCiphertextBuffer.Bytes() //得到了b1+b2的结果
+	serializedCiphertext := serializedCiphertextBuffer.Bytes()
 
 	fmt.Println("serializedCiphertextBuffer： \t", hex.EncodeToString(serializedCiphertext))
 
+	plainText := Decrypt([]byte(PRIVATE2), serializedCiphertext, pubKeyBuff)
+
+	fmt.Println(plainText)
+
 }
 
-
+// Refer: https://github.com/libertylocked/eth-ecies/blob/master/index.js
 func TestDecrypt(t *testing.T) {
+	const PRIVATE = "3621626f8ed1fd98bbd27b9a6af0f8fe3377a6dd66bfa269004da8abfb972fcd"
+	const PRIVATE2 = "a1cece26300160d3ce697b72f62f73f3519cef5b418bca0ae1f34616f455c450"
 
+	var pubKeyBuff = Public(PRIVATE)
+	var pubKeyTo = Public(PRIVATE2)
+
+	plaintext := "hello world"
+	serializedCiphertext := Encrypt(PRIVATE, hex.EncodeToString(pubKeyTo), plaintext)
+
+	// fmt.Println("serializedCiphertext: \t", hex.EncodeToString(serializedCiphertext))
+
+	// textBuff, _ := hex.DecodeString(serializedCiphertext)
+
+	decrypted := Decrypt([]byte(PRIVATE2), serializedCiphertext, pubKeyBuff)
+
+	fmt.Println(decrypted)
+
+	if decrypted != plaintext {
+		t.Fatalf("plaintext should : %s ", plaintext)
+	}
 }
