@@ -13,8 +13,8 @@ import (
 )
 
 func TestEncrypt(t *testing.T) {
-	const PRIVATE = "3621626f8ed1fd98bbd27b9a6af0f8fe3377a6dd66bfa269004da8abfb972fcd"
-	const PRIVATE2 = "a1cece26300160d3ce697b72f62f73f3519cef5b418bca0ae1f34616f455c450"
+	const PRIVATE = "1000000000000000000000000000000000000000000000000000000000000000"
+	const PRIVATE2 = "2000000000000000000000000000000000000000000000000000000000000000"
 	var pubKeyBuff = Public(PRIVATE)
 	fmt.Println("publicKey: \t", fmt.Sprintf("%x", pubKeyBuff))
 
@@ -120,7 +120,7 @@ func TestEncrypt(t *testing.T) {
 
 	fmt.Println("serializedCiphertextBuffer： \t", hex.EncodeToString(serializedCiphertext))
 
-	plainText := Decrypt([]byte(PRIVATE2), serializedCiphertext, pubKeyBuff)
+	plainText := Decrypt([]byte(PRIVATE2), serializedCiphertext)
 
 	fmt.Println(plainText)
 
@@ -128,20 +128,20 @@ func TestEncrypt(t *testing.T) {
 
 // Refer: https://github.com/libertylocked/eth-ecies/blob/master/index.js
 func TestDecrypt(t *testing.T) {
-	const PRIVATE = "3621626f8ed1fd98bbd27b9a6af0f8fe3377a6dd66bfa269004da8abfb972fcd"
-	const PRIVATE2 = "a1cece26300160d3ce697b72f62f73f3519cef5b418bca0ae1f34616f455c450"
+	const PRIVATE = "1000000000000000000000000000000000000000000000000000000000000000"
+	const PRIVATE2 = "2000000000000000000000000000000000000000000000000000000000000000"
 
-	var pubKeyBuff = Public(PRIVATE)
+	// var pubKeyBuff = Public(PRIVATE)
 	var pubKeyTo = Public(PRIVATE2)
 
 	plaintext := "hello world"
-	serializedCiphertext := Encrypt(PRIVATE, hex.EncodeToString(pubKeyTo), plaintext)
+	serializedCiphertext := Encrypt(hex.EncodeToString(pubKeyTo), plaintext, PRIVATE)
 
 	// fmt.Println("serializedCiphertext: \t", hex.EncodeToString(serializedCiphertext))
 
 	// textBuff, _ := hex.DecodeString(serializedCiphertext)
 
-	decrypted := Decrypt([]byte(PRIVATE2), serializedCiphertext, pubKeyBuff)
+	decrypted := Decrypt([]byte(PRIVATE2), serializedCiphertext)
 
 	fmt.Println(decrypted)
 

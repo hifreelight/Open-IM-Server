@@ -381,12 +381,20 @@ func GenRandomBytes(size int) (blk []byte, err error) {
 	return
 }
 
-func Encrypt(privKey string, pubKeyTo string, plaintext string) []byte {
-	prvKey := hexToPrivateKey(privKey)
+func Encrypt(pubKeyTo string, plaintext string, privKey string) []byte {
+	var prvKey *ecdsa.PrivateKey
+	var pubKeyBuff []byte
+	if privKey == "" {
+		prvKey, _ = GenerateKey()
+
+		pubKeyBuff = elliptic.Marshal(secp256k1.S256(), prvKey.PublicKey.X, prvKey.PublicKey.Y)
+	} else {
+		prvKey = hexToPrivateKey(privKey)
+		pubKeyBuff = Public(privKey)
+	}
 	pubKey := fromPublicKey(pubKeyTo)
 	// pubKeyBuff := elliptic.Marshal(secp256k1.S256(), pubKey.X, pubKey.Y)
 	// pubKeyBuff, _ := hex.DecodeString(pubKeyTo)
-	pubKeyBuff := Public(privKey)
 
 	shareKey, _ := GenerateSharedSecret(*prvKey, *pubKey)
 
@@ -438,7 +446,7 @@ func Encrypt(privKey string, pubKeyTo string, plaintext string) []byte {
 // privKey string 2 byte
 // encrypted byte
 // publicKeyFrom with 04
-func Decrypt(privKey, encrypted, publicKeyFrom []byte) string {
+func Decrypt(privKey, encrypted []byte) string {
 	iv := encrypted[0:16]
 
 	// var buffer bytes.Buffer
@@ -446,7 +454,7 @@ func Decrypt(privKey, encrypted, publicKeyFrom []byte) string {
 	// buffer.Write(publicKeyFrom)
 	// ephemPubKeyEncoded := buffer.Bytes()
 
-	ephemPubKeyEncoded := publicKeyFrom
+	ephemPubKeyEncoded := encrypted[16:81]
 	mac := encrypted[81:113]
 	ciphertext := encrypted[113:]
 
@@ -486,4 +494,12 @@ func Decrypt(privKey, encrypted, publicKeyFrom []byte) string {
 
 	return plaintext
 
+}
+
+func ephemPubKeyEncodedFromEncrypted(encrypted []byte) []byte {
+	return encrypted[16:81]
+}
+
+func verifyPubKey(encrypted []byte, publicKeyFrom []byte) bool {
+	return bytes.Equal(ephemPubKeyEncodedFromEncrypted(encrypted), publicKeyFrom)
 }
