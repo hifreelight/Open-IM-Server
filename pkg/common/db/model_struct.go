@@ -72,6 +72,7 @@ func (FriendRequest) TableName() string {
 //  int32 Status = 10;
 //  string CreatorUserID = 11;
 //  int32 GroupType = 12;
+//
 //}
 //  open_im_sdk.GroupInfo (OwnerUserID ,  MemberCount )> imdb.Group
 type Group struct {
@@ -79,6 +80,7 @@ type Group struct {
 	//`protobuf:"bytes,1,opt,name=GroupID" json:"GroupID,omitempty"` `json:"operationID" binding:"required"`
 	GroupID                string    `gorm:"column:group_id;primary_key;size:64" json:"groupID" binding:"required"`
 	GroupName              string    `gorm:"column:name;size:255" json:"groupName"`
+	Key                    string    `gorm:"column:key;size:255" json:"key"`
 	Notification           string    `gorm:"column:notification;size:255" json:"notification"`
 	Introduction           string    `gorm:"column:introduction;size:255" json:"introduction"`
 	FaceURL                string    `gorm:"column:face_url;size:255" json:"faceURL"`
@@ -155,9 +157,11 @@ type GroupRequest struct {
 //string Ex = 8;
 //int64 CreateTime = 9;
 //int32 AppMangerLevel = 10;
+//string PubKey = 11;
 //open_im_sdk.User == imdb.User
 type User struct {
 	UserID           string    `gorm:"column:user_id;primary_key;size:64"`
+	PubKey           string    `gorm:"column:pub_key;size:255"`
 	Nickname         string    `gorm:"column:name;size:255"`
 	FaceURL          string    `gorm:"column:face_url;size:255"`
 	Gender           int32     `gorm:"column:gender"`
