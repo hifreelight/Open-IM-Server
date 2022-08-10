@@ -147,6 +147,13 @@ type GroupRequest struct {
 	Ex            string    `gorm:"column:ex;size:1024"`
 }
 
+type GroupKey struct {
+	GroupID    string    `gorm:"column:group_id;primary_key;size:64"`
+	Key        string    `gorm:"column:key;size:64"`
+	CreateTime time.Time `gorm:"column:create_time"`
+	Ex         string    `gorm:"column:ex;size:1024"`
+}
+
 //string UserID = 1;
 //string Nickname = 2;
 //string FaceUrl = 3;

@@ -2,6 +2,7 @@ package db
 
 import (
 	"Open_IM/pkg/common/config"
+
 	"gorm.io/gorm/logger"
 
 	"fmt"
@@ -78,6 +79,7 @@ func initMysqlDB() {
 		&Group{},
 		&GroupMember{},
 		&GroupRequest{},
+		&GroupKey{},
 		&User{},
 		&Black{}, &ChatLog{}, &Register{}, &Conversation{}, &AppVersion{}, &Department{})
 	db.Set("gorm:table_options", "CHARSET=utf8")
@@ -105,6 +107,10 @@ func initMysqlDB() {
 	if !db.Migrator().HasTable(&GroupRequest{}) {
 		fmt.Println("CreateTable GroupRequest")
 		db.Migrator().CreateTable(&GroupRequest{})
+	}
+	if !db.Migrator().HasTable(&GroupKey{}) {
+		fmt.Println("CreateTable GroupKey")
+		db.Migrator().CreateTable(&GroupKey{})
 	}
 	if !db.Migrator().HasTable(&User{}) {
 		fmt.Println("CreateTable User")

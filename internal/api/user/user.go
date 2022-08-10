@@ -198,7 +198,7 @@ func GetUsersInfo(c *gin.Context) {
 	var publicUserInfoList []*open_im_sdk.PublicUserInfo
 	for _, v := range RpcResp.UserInfoList {
 		publicUserInfoList = append(publicUserInfoList,
-			&open_im_sdk.PublicUserInfo{UserID: v.UserID, Nickname: v.Nickname, FaceURL: v.FaceURL, Gender: v.Gender, Ex: v.Ex})
+			&open_im_sdk.PublicUserInfo{UserID: v.UserID, Nickname: v.Nickname, FaceURL: v.FaceURL, Gender: v.Gender, Ex: v.Ex, PubKey: v.PubKey})
 	}
 
 	resp := api.GetUsersInfoResp{CommResp: api.CommResp{ErrCode: RpcResp.CommonResp.ErrCode, ErrMsg: RpcResp.CommonResp.ErrMsg}, UserInfoList: publicUserInfoList}

@@ -61,6 +61,7 @@ message PublicUserInfo{
   string faceURL = 3;
   int32 gender = 4;
   string ex = 5;
+  string pubKey = 6;
 }
 
 message UserInfo{
@@ -75,6 +76,7 @@ message UserInfo{
   uint32 createTime = 9;
   int32 appMangerLevel = 10;
   int32  globalRecvMsgOpt = 11;
+  string pubKey = 12;
 }
 
 message FriendInfo{

@@ -6,7 +6,7 @@ import (
 	"Open_IM/pkg/common/constant"
 	"Open_IM/pkg/common/db"
 	imdb "Open_IM/pkg/common/db/mysql_model/im_mysql_model"
-	"Open_IM/pkg/common/db/rocks_cache"
+	rocksCache "Open_IM/pkg/common/db/rocks_cache"
 	"Open_IM/pkg/common/http"
 	"Open_IM/pkg/common/log"
 	"Open_IM/pkg/common/token_verify"
@@ -19,12 +19,13 @@ import (
 	pbUser "Open_IM/pkg/proto/user"
 	"Open_IM/pkg/utils"
 	"context"
-	"google.golang.org/grpc"
 	"math/big"
 	"net"
 	"strconv"
 	"strings"
 	"time"
+
+	"google.golang.org/grpc"
 )
 
 type groupServer struct {
@@ -116,6 +117,14 @@ func (s *groupServer) CreateGroup(ctx context.Context, req *pbGroup.CreateGroupR
 		log.NewError(req.OperationID, "InsertIntoGroup failed, ", err.Error(), groupInfo)
 		return &pbGroup.CreateGroupResp{ErrCode: constant.ErrDB.ErrCode, ErrMsg: constant.ErrDB.ErrMsg}, http.WrapError(constant.ErrDB)
 	}
+
+	groupKey := db.GroupKey{}
+	groupKey.GroupID = groupId
+	err = imdb.InsertIntoGroupKey(groupKey)
+	if err != nil {
+		log.NewError(req.OperationID, "InsertIntoGroup failed, ", err.Error(), groupInfo)
+	}
+
 	var okUserIDList []string
 	resp := &pbGroup.CreateGroupResp{GroupInfo: &open_im_sdk.GroupInfo{}}
 	groupMember := db.GroupMember{}
