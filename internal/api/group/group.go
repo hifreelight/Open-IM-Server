@@ -1278,9 +1278,9 @@ func SetGroupMemberInfo(c *gin.Context) {
 // @ID GetGroupKeyList
 // @Accept json
 // @Param token header string true "im token"
-// @Param req body api.GetGroupKeyReq true "GroupID为要获取群成员的群ID"
+// @Param req body api.GetGroupKeyListReq true "GroupID为要获取群成员的群ID"
 // @Produce json
-// @Success 0 {object} api.GetGroupKeyResp{data=[]open_im_sdk.GroupKey}
+// @Success 0 {object} api.GetGroupKeyListResp{data=[]open_im_sdk.GroupKey}
 // @Failure 500 {object} api.Swagger500Resp "errCode为500 一般为服务器内部错误"
 // @Failure 400 {object} api.Swagger400Resp "errCode为400 一般为参数输入错误, token未带上等"
 // @Router /group/get_group_key_list [post]

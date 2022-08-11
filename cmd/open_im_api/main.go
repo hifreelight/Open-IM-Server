@@ -108,6 +108,7 @@ func main() {
 		groupRouterGroup.POST("/cancel_mute_group", group.CancelMuteGroup)
 		groupRouterGroup.POST("/set_group_member_nickname", group.SetGroupMemberNickname)
 		groupRouterGroup.POST("/set_group_member_info", group.SetGroupMemberInfo)
+		groupRouterGroup.POST("/get_group_key_list", group.GetGroupKeyList)
 	}
 	superGroupRouterGroup := r.Group("/super_group")
 	{

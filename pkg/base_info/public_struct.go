@@ -1,8 +1,9 @@
 package base_info
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 type ApiUserInfo struct {
@@ -13,6 +14,7 @@ type ApiUserInfo struct {
 	PhoneNumber string `json:"phoneNumber" binding:"omitempty,max=32"`
 	Birth       uint32 `json:"birth" binding:"omitempty"`
 	Email       string `json:"email" binding:"omitempty,max=64"`
+	PubKey      string `json:"publicKey" binding:"omitempty,max=64"`
 	Ex          string `json:"ex" binding:"omitempty,max=1024"`
 }
 

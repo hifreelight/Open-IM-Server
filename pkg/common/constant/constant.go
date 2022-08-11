@@ -94,6 +94,8 @@ const (
 	GroupMemberSetToAdminNotification        = 1517
 	GroupMemberSetToOrdinaryUserNotification = 1518
 
+	GroupKeyUpdateNotification = 1550
+
 	SignalingNotificationBegin = 1600
 	SignalingNotification      = 1601
 	SignalingNotificationEnd   = 1649

@@ -547,11 +547,13 @@ func (s *groupServer) GetGroupMemberList(ctx context.Context, req *pbGroup.GetGr
 }
 
 func (s *groupServer) GetGroupKeyList(ctx context.Context, req *pbGroup.GetGroupKeyListReq) (*pbGroup.GetGroupKeyListResp, error) {
-	// TODO: in group
-	// opInfo, err := imdb.GetGroupMemberInfoByGroupIDAndUserID(req.GroupID, req.OpUserID)
-
 	log.NewInfo(req.OperationID, "GetGroupKeyList args ", req.String())
 	var resp pbGroup.GetGroupKeyListResp
+	// TODO: in group
+	opInfo, err := imdb.GetGroupMemberInfoByGroupIDAndUserID(req.GroupID, req.OpUserID)
+	if opInfo == nil {
+		return &resp, nil
+	}
 	keyList, err := imdb.GetGroupKeyListByGroupID(req.GroupID, int(req.Start), int(req.Limit))
 	if err != nil {
 		resp.ErrCode = constant.ErrDB.ErrCode
@@ -2085,5 +2087,5 @@ func UpdateKeyAndNotifyGroupMembers(operationID, groupId string) {
 		log.NewError(operationID, "InsertIntoGroupKey failed, ", err.Error(), groupId)
 	}
 	// TODO: notify encrypt key
-
+	// chat.GroupKeyUpdateNotification();
 }

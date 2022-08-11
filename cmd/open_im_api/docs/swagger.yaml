@@ -1,126 +1,82 @@
 basePath: /
 definitions:
-  Open_IM_internal_api_manage.FileElem:
+  Open_IM_pkg_proto_sdk_ws.GroupInfo:
     properties:
-      fileName:
-        type: string
-      filePath:
-        type: string
-      fileSize:
+      applyMemberFriend:
         type: integer
-      sourceURL:
+      createTime:
+        type: integer
+      creatorUserID:
         type: string
-      uuid:
+      ex:
         type: string
+      faceURL:
+        type: string
+      groupID:
+        type: string
+      groupName:
+        type: string
+      groupType:
+        type: integer
+      introduction:
+        type: string
+      lookMemberInfo:
+        type: integer
+      memberCount:
+        type: integer
+      needVerification:
+        type: integer
+      notification:
+        type: string
+      notificationUpdateTime:
+        type: integer
+      notificationUserID:
+        type: string
+      ownerUserID:
+        type: string
+      status:
+        type: integer
     type: object
-  Open_IM_internal_api_manage.OANotificationElem:
+  Open_IM_pkg_proto_sdk_ws.PublicUserInfo:
     properties:
       ex:
         type: string
-      fileElem:
-        $ref: '#/definitions/Open_IM_internal_api_manage.FileElem'
-      mixType:
+      faceURL:
+        type: string
+      gender:
         type: integer
-      notificationFaceURL:
+      nickname:
         type: string
-      notificationName:
+      pubKey:
         type: string
-      notificationType:
-        type: integer
-      pictureElem:
-        $ref: '#/definitions/Open_IM_internal_api_manage.PictureElem'
-      soundElem:
-        $ref: '#/definitions/Open_IM_internal_api_manage.SoundElem'
-      text:
-        type: string
-      url:
-        type: string
-      videoElem:
-        $ref: '#/definitions/Open_IM_internal_api_manage.VideoElem'
-    required:
-    - notificationFaceURL
-    - notificationName
-    - notificationType
-    - text
-    type: object
-  Open_IM_internal_api_manage.PictureBaseInfo:
-    properties:
-      height:
-        type: integer
-      size:
-        type: integer
-      type:
-        type: string
-      url:
-        type: string
-      uuid:
-        type: string
-      width:
-        type: integer
-    type: object
-  Open_IM_internal_api_manage.PictureElem:
-    properties:
-      bigPicture:
-        $ref: '#/definitions/Open_IM_internal_api_manage.PictureBaseInfo'
-      snapshotPicture:
-        $ref: '#/definitions/Open_IM_internal_api_manage.PictureBaseInfo'
-      sourcePath:
-        type: string
-      sourcePicture:
-        $ref: '#/definitions/Open_IM_internal_api_manage.PictureBaseInfo'
-    type: object
-  Open_IM_internal_api_manage.RevokeElem:
-    properties:
-      revokeMsgClientID:
-        type: string
-    required:
-    - revokeMsgClientID
-    type: object
-  Open_IM_internal_api_manage.SoundElem:
-    properties:
-      dataSize:
-        type: integer
-      duration:
-        type: integer
-      soundPath:
-        type: string
-      sourceURL:
-        type: string
-      uuid:
+      userID:
         type: string
     type: object
-  Open_IM_internal_api_manage.TextElem:
+  Open_IM_pkg_proto_sdk_ws.UserInfo:
     properties:
-      text:
-        type: string
-    required:
-    - text
-    type: object
-  Open_IM_internal_api_manage.VideoElem:
-    properties:
-      duration:
+      appMangerLevel:
         type: integer
-      snapshotHeight:
+      birth:
         type: integer
-      snapshotPath:
-        type: string
-      snapshotSize:
+      createTime:
         type: integer
-      snapshotURL:
+      email:
         type: string
-      snapshotUUID:
+      ex:
         type: string
-      snapshotWidth:
+      faceURL:
+        type: string
+      gender:
         type: integer
-      videoPath:
-        type: string
-      videoSize:
+      globalRecvMsgOpt:
         type: integer
-      videoType:
+      nickname:
         type: string
-      videoURL:
+      phoneNumber:
         type: string
-      videoUUID:
+      pubKey:
+        type: string
+      userID:
         type: string
     type: object
   base_info.AccountCheckReq:
@@ -962,6 +918,24 @@ definitions:
       errMsg:
         type: string
     type: object
+  base_info.GetGroupKeyListReq:
+    properties:
+      groupID:
+        type: string
+      limit:
+        type: integer
+      operationID:
+        type: string
+      start:
+        type: integer
+    type: object
+  base_info.GetGroupKeyListResp:
+    properties:
+      errCode:
+        type: integer
+      errMsg:
+        type: string
+    type: object
   base_info.GetGroupMembersInfoReq:
     properties:
       groupID:
@@ -1285,6 +1259,9 @@ definitions:
   base_info.GroupAddMemberInfo:
     properties:
       roleLevel:
+        enum:
+        - 1
+        - 3
         type: integer
       userID:
         type: string
@@ -1372,6 +1349,10 @@ definitions:
     properties:
       groupID:
         type: string
+      inviterUserID:
+        type: string
+      joinSource:
+        type: integer
       operationID:
         type: string
       reqMessage:
@@ -1436,11 +1417,15 @@ definitions:
     type: object
   base_info.ManagementBatchSendMsgReq:
     properties:
+      businessOperationID:
+        type: string
       contentType:
         type: integer
       groupID:
         type: string
       isOnlineOnly:
+        type: boolean
+      notOfflinePush:
         type: boolean
       offlinePushInfo:
         $ref: '#/definitions/server_api_params.OfflinePushInfo'
@@ -1468,11 +1453,15 @@ definitions:
     type: object
   base_info.ManagementSendMsgReq:
     properties:
+      businessOperationID:
+        type: string
       contentType:
         type: integer
       groupID:
         type: string
       isOnlineOnly:
+        type: boolean
+      notOfflinePush:
         type: boolean
       offlinePushInfo:
         $ref: '#/definitions/server_api_params.OfflinePushInfo'
@@ -1657,7 +1646,6 @@ definitions:
     required:
     - fromUserID
     - operationID
-    - remark
     - toUserID
     type: object
   base_info.SetFriendRemarkResp:
@@ -1689,6 +1677,8 @@ definitions:
     type: object
   base_info.SetGroupInfoReq:
     properties:
+      applyMemberFriend:
+        type: integer
       ex:
         type: string
       faceURL:
@@ -1699,6 +1689,8 @@ definitions:
         type: string
       introduction:
         type: string
+      lookMemberInfo:
+        type: integer
       needVerification:
         type: integer
       notification:
@@ -1913,6 +1905,9 @@ definitions:
       phoneNumber:
         maxLength: 32
         type: string
+      publicKey:
+        maxLength: 64
+        type: string
       userID:
         maxLength: 64
         minLength: 1
@@ -1995,6 +1990,9 @@ definitions:
         maximum: 7
         minimum: 1
         type: integer
+      publicKey:
+        maxLength: 64
+        type: string
       secret:
         maxLength: 32
         type: string
@@ -2096,7 +2094,7 @@ definitions:
       userName:
         type: string
     type: object
-  internal_api_manage.FileElem:
+  manage.FileElem:
     properties:
       fileName:
         type: string
@@ -2109,12 +2107,12 @@ definitions:
       uuid:
         type: string
     type: object
-  internal_api_manage.OANotificationElem:
+  manage.OANotificationElem:
     properties:
       ex:
         type: string
       fileElem:
-        $ref: '#/definitions/internal_api_manage.FileElem'
+        $ref: '#/definitions/manage.FileElem'
       mixType:
         type: integer
       notificationFaceURL:
@@ -2124,22 +2122,21 @@ definitions:
       notificationType:
         type: integer
       pictureElem:
-        $ref: '#/definitions/internal_api_manage.PictureElem'
+        $ref: '#/definitions/manage.PictureElem'
       soundElem:
-        $ref: '#/definitions/internal_api_manage.SoundElem'
+        $ref: '#/definitions/manage.SoundElem'
       text:
         type: string
       url:
         type: string
       videoElem:
-        $ref: '#/definitions/internal_api_manage.VideoElem'
+        $ref: '#/definitions/manage.VideoElem'
     required:
-    - notificationFaceURL
     - notificationName
     - notificationType
     - text
     type: object
-  internal_api_manage.PictureBaseInfo:
+  manage.PictureBaseInfo:
     properties:
       height:
         type: integer
@@ -2154,25 +2151,25 @@ definitions:
       width:
         type: integer
     type: object
-  internal_api_manage.PictureElem:
+  manage.PictureElem:
     properties:
       bigPicture:
-        $ref: '#/definitions/internal_api_manage.PictureBaseInfo'
+        $ref: '#/definitions/manage.PictureBaseInfo'
       snapshotPicture:
-        $ref: '#/definitions/internal_api_manage.PictureBaseInfo'
+        $ref: '#/definitions/manage.PictureBaseInfo'
       sourcePath:
         type: string
       sourcePicture:
-        $ref: '#/definitions/internal_api_manage.PictureBaseInfo'
+        $ref: '#/definitions/manage.PictureBaseInfo'
     type: object
-  internal_api_manage.RevokeElem:
+  manage.RevokeElem:
     properties:
       revokeMsgClientID:
         type: string
     required:
     - revokeMsgClientID
     type: object
-  internal_api_manage.SoundElem:
+  manage.SoundElem:
     properties:
       dataSize:
         type: integer
@@ -2185,14 +2182,14 @@ definitions:
       uuid:
         type: string
     type: object
-  internal_api_manage.TextElem:
+  manage.TextElem:
     properties:
       text:
         type: string
     required:
     - text
     type: object
-  internal_api_manage.VideoElem:
+  manage.VideoElem:
     properties:
       duration:
         type: integer
@@ -2336,6 +2333,85 @@ definitions:
       userID:
         type: string
     type: object
+  pkg_proto_sdk_ws.GroupInfo:
+    properties:
+      applyMemberFriend:
+        type: integer
+      createTime:
+        type: integer
+      creatorUserID:
+        type: string
+      ex:
+        type: string
+      faceURL:
+        type: string
+      groupID:
+        type: string
+      groupName:
+        type: string
+      groupType:
+        type: integer
+      introduction:
+        type: string
+      lookMemberInfo:
+        type: integer
+      memberCount:
+        type: integer
+      needVerification:
+        type: integer
+      notification:
+        type: string
+      notificationUpdateTime:
+        type: integer
+      notificationUserID:
+        type: string
+      ownerUserID:
+        type: string
+      status:
+        type: integer
+    type: object
+  pkg_proto_sdk_ws.PublicUserInfo:
+    properties:
+      ex:
+        type: string
+      faceURL:
+        type: string
+      gender:
+        type: integer
+      nickname:
+        type: string
+      pubKey:
+        type: string
+      userID:
+        type: string
+    type: object
+  pkg_proto_sdk_ws.UserInfo:
+    properties:
+      appMangerLevel:
+        type: integer
+      birth:
+        type: integer
+      createTime:
+        type: integer
+      email:
+        type: string
+      ex:
+        type: string
+      faceURL:
+        type: string
+      gender:
+        type: integer
+      globalRecvMsgOpt:
+        type: integer
+      nickname:
+        type: string
+      phoneNumber:
+        type: string
+      pubKey:
+        type: string
+      userID:
+        type: string
+    type: object
   server_api_params.Department:
     properties:
       createTime:
@@ -2385,7 +2461,7 @@ definitions:
       ex:
         type: string
       friendUser:
-        $ref: '#/definitions/server_api_params.UserInfo'
+        $ref: '#/definitions/pkg_proto_sdk_ws.UserInfo'
       operatorUserID:
         type: string
       ownerUserID:
@@ -2426,44 +2502,29 @@ definitions:
       toUserID:
         type: string
     type: object
-  server_api_params.GroupInfo:
+  server_api_params.GroupKey:
     properties:
       createTime:
         type: integer
-      creatorUserID:
-        type: string
       ex:
-        type: string
-      faceURL:
         type: string
       groupID:
         type: string
-      groupName:
+      key:
         type: string
-      groupType:
-        type: integer
-      introduction:
-        type: string
-      memberCount:
-        type: integer
-      needVerification:
-        type: integer
-      notification:
-        type: string
-      ownerUserID:
-        type: string
-      status:
-        type: integer
     type: object
   server_api_params.GroupMemberFullInfo:
     properties:
       appMangerLevel:
+        description: if >0
         type: integer
       ex:
         type: string
       faceURL:
         type: string
       groupID:
+        type: string
+      inviterUserID:
         type: string
       joinSource:
         type: integer
@@ -2485,7 +2546,7 @@ definitions:
       ex:
         type: string
       groupInfo:
-        $ref: '#/definitions/server_api_params.GroupInfo'
+        $ref: '#/definitions/pkg_proto_sdk_ws.GroupInfo'
       handleMsg:
         type: string
       handleResult:
@@ -2494,12 +2555,16 @@ definitions:
         type: integer
       handleUserID:
         type: string
+      inviterUserID:
+        type: string
+      joinSource:
+        type: integer
       reqMsg:
         type: string
       reqTime:
         type: integer
       userInfo:
-        $ref: '#/definitions/server_api_params.PublicUserInfo'
+        $ref: '#/definitions/pkg_proto_sdk_ws.PublicUserInfo'
     type: object
   server_api_params.OfflinePushInfo:
     properties:
@@ -2539,19 +2604,6 @@ definitions:
       userID:
         type: string
     type: object
-  server_api_params.PublicUserInfo:
-    properties:
-      ex:
-        type: string
-      faceURL:
-        type: string
-      gender:
-        type: integer
-      nickname:
-        type: string
-      userID:
-        type: string
-    type: object
   server_api_params.UserDepartmentMember:
     properties:
       departmentMember:
@@ -2567,31 +2619,6 @@ definitions:
         type: array
       organizationUser:
         $ref: '#/definitions/server_api_params.OrganizationUser'
-    type: object
-  server_api_params.UserInfo:
-    properties:
-      appMangerLevel:
-        type: integer
-      birth:
-        type: integer
-      createTime:
-        type: integer
-      email:
-        type: string
-      ex:
-        type: string
-      faceURL:
-        type: string
-      gender:
-        type: integer
-      globalRecvMsgOpt:
-        type: integer
-      nickname:
-        type: string
-      phoneNumber:
-        type: string
-      userID:
-        type: string
     type: object
   server_api_params.UserSendMsgResp:
     properties:
@@ -2702,11 +2729,6 @@ paths:
       description: 用户注册
       operationId: UserRegister
       parameters:
-      - description: im token
-        in: header
-        name: token
-        required: true
-        type: string
       - description: secret为openIM密钥, 详细见服务端config.yaml secret字段 <br> platform为平台ID
           <br> ex为拓展字段 <br> gender为性别, 0为女, 1为男
         in: body
@@ -2739,11 +2761,6 @@ paths:
       description: 获取用户的token
       operationId: UserToken
       parameters:
-      - description: im token
-        in: header
-        name: token
-        required: true
-        type: string
       - description: secret为openIM密钥, 详细见服务端config.yaml secret字段 <br> platform为平台ID
         in: body
         name: req
@@ -2942,7 +2959,7 @@ paths:
             - properties:
                 data:
                   items:
-                    $ref: '#/definitions/server_api_params.PublicUserInfo'
+                    $ref: '#/definitions/Open_IM_pkg_proto_sdk_ws.PublicUserInfo'
                   type: array
               type: object
         "400":
@@ -3331,7 +3348,7 @@ paths:
             - $ref: '#/definitions/base_info.CreateGroupResp'
             - properties:
                 data:
-                  $ref: '#/definitions/server_api_params.GroupInfo'
+                  $ref: '#/definitions/Open_IM_pkg_proto_sdk_ws.GroupInfo'
               type: object
         "400":
           description: errCode为400 一般为参数输入错误, token未带上等
@@ -3421,6 +3438,49 @@ paths:
           schema:
             $ref: '#/definitions/base_info.Swagger500Resp'
       summary: 获取全部群成员列表
+      tags:
+      - 群组相关
+  /group/get_group_key_list:
+    post:
+      consumes:
+      - application/json
+      description: 获取群密钥列表
+      operationId: GetGroupKeyList
+      parameters:
+      - description: im token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: GroupID为要获取群成员的群ID
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/base_info.GetGroupKeyListReq'
+      produces:
+      - application/json
+      responses:
+        "0":
+          description: ""
+          schema:
+            allOf:
+            - $ref: '#/definitions/base_info.GetGroupKeyListResp'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/server_api_params.GroupKey'
+                  type: array
+              type: object
+        "400":
+          description: errCode为400 一般为参数输入错误, token未带上等
+          schema:
+            $ref: '#/definitions/base_info.Swagger400Resp'
+        "500":
+          description: errCode为500 一般为服务器内部错误
+          schema:
+            $ref: '#/definitions/base_info.Swagger500Resp'
+      summary: 获取最近三天群密钥列表
       tags:
       - 群组相关
   /group/get_group_members_info:
@@ -3531,7 +3591,7 @@ paths:
             - properties:
                 data:
                   items:
-                    $ref: '#/definitions/server_api_params.GroupInfo'
+                    $ref: '#/definitions/Open_IM_pkg_proto_sdk_ws.GroupInfo'
                   type: array
               type: object
         "400":
@@ -4015,7 +4075,7 @@ paths:
           - $ref: '#/definitions/base_info.ManagementBatchSendMsgReq'
           - properties:
               content:
-                $ref: '#/definitions/Open_IM_internal_api_manage.TextElem'
+                $ref: '#/definitions/manage.TextElem'
             type: object
       - description: 该请求和消息结构体一样 <br> recvIDList为接受消息的用户ID列表
         in: body
@@ -4026,7 +4086,7 @@ paths:
           - $ref: '#/definitions/base_info.ManagementSendMsgReq'
           - properties:
               content:
-                $ref: '#/definitions/Open_IM_internal_api_manage.OANotificationElem'
+                $ref: '#/definitions/manage.OANotificationElem'
             type: object
       produces:
       - application/json
@@ -4247,7 +4307,7 @@ paths:
           - $ref: '#/definitions/base_info.ManagementSendMsgReq'
           - properties:
               content:
-                $ref: '#/definitions/Open_IM_internal_api_manage.TextElem'
+                $ref: '#/definitions/manage.TextElem'
             type: object
       - description: 该请求和消息结构体一样
         in: body
@@ -4258,7 +4318,7 @@ paths:
           - $ref: '#/definitions/base_info.ManagementSendMsgReq'
           - properties:
               content:
-                $ref: '#/definitions/Open_IM_internal_api_manage.OANotificationElem'
+                $ref: '#/definitions/manage.OANotificationElem'
             type: object
       - description: 该请求和消息结构体一样
         in: body
@@ -4269,7 +4329,7 @@ paths:
           - $ref: '#/definitions/base_info.ManagementSendMsgReq'
           - properties:
               content:
-                $ref: '#/definitions/Open_IM_internal_api_manage.RevokeElem'
+                $ref: '#/definitions/manage.RevokeElem'
             type: object
       produces:
       - application/json
@@ -5431,7 +5491,7 @@ paths:
             - $ref: '#/definitions/base_info.GetSelfUserInfoResp'
             - properties:
                 data:
-                  $ref: '#/definitions/server_api_params.UserInfo'
+                  $ref: '#/definitions/Open_IM_pkg_proto_sdk_ws.UserInfo'
               type: object
         "400":
           description: errCode为400 一般为参数输入错误, token未带上等
@@ -5473,7 +5533,7 @@ paths:
             - properties:
                 Data:
                   items:
-                    $ref: '#/definitions/server_api_params.PublicUserInfo'
+                    $ref: '#/definitions/Open_IM_pkg_proto_sdk_ws.PublicUserInfo'
                   type: array
               type: object
         "400":

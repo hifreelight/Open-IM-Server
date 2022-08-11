@@ -1,6 +1,6 @@
 SET ROOT=%cd%
 cd %ROOT%\..\bin\
-@REM start "1" cmd /C .\open_im_api.exe -port 10002
+start "1" cmd /C .\open_im_api.exe -port 10002
 start "2" cmd /C .\open_im_cms_api.exe -port 10006
 start "3" cmd /C .\open_im_user.exe -port 10110
 start "4" cmd /C .\open_im_friend.exe -port 10120
@@ -16,7 +16,7 @@ start "13" cmd /C .\open_im_conversation.exe -port 10230
 start "14" cmd /C .\open_im_cache.exe -port 10240
 start "15" cmd /C .\open_im_push.exe -port 10170
 start "16" cmd /C .\open_im_msg_transfer.exe
-@REM start "17" cmd /C .\open_im_sdk_server.exe -openIM_api_port 10002 -openIM_ws_port 10001 -sdk_ws_port 10003 -openIM_log_level 6
+start "17" cmd /C .\open_im_sdk_server.exe -openIM_api_port 10002 -openIM_ws_port 10001 -sdk_ws_port 10003 -openIM_log_level 6
 start "18" cmd /C .\open_im_msg_gateway.exe -rpc_port 10140 -ws_port 10001
 start "19" cmd /C .\open_im_demo.exe -port 10004
 cd %ROOT%

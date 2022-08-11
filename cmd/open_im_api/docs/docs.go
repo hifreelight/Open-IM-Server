@@ -156,13 +156,6 @@ const docTemplate = `{
                 "operationId": "UserRegister",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "im token",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
                         "description": "secret为openIM密钥, 详细见服务端config.yaml secret字段 \u003cbr\u003e platform为平台ID \u003cbr\u003e ex为拓展字段 \u003cbr\u003e gender为性别, 0为女, 1为男",
                         "name": "req",
                         "in": "body",
@@ -209,13 +202,6 @@ const docTemplate = `{
                 "summary": "用户登录",
                 "operationId": "UserToken",
                 "parameters": [
-                    {
-                        "type": "string",
-                        "description": "im token",
-                        "name": "token",
-                        "in": "header",
-                        "required": true
-                    },
                     {
                         "description": "secret为openIM密钥, 详细见服务端config.yaml secret字段 \u003cbr\u003e platform为平台ID",
                         "name": "req",
@@ -510,7 +496,7 @@ const docTemplate = `{
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/server_api_params.PublicUserInfo"
+                                                "$ref": "#/definitions/Open_IM_pkg_proto_sdk_ws.PublicUserInfo"
                                             }
                                         }
                                     }
@@ -1108,7 +1094,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/server_api_params.GroupInfo"
+                                            "$ref": "#/definitions/Open_IM_pkg_proto_sdk_ws.GroupInfo"
                                         }
                                     }
                                 }
@@ -1231,6 +1217,75 @@ const docTemplate = `{
                                             "type": "array",
                                             "items": {
                                                 "$ref": "#/definitions/server_api_params.GroupMemberFullInfo"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "errCode为400 一般为参数输入错误, token未带上等",
+                        "schema": {
+                            "$ref": "#/definitions/base_info.Swagger400Resp"
+                        }
+                    },
+                    "500": {
+                        "description": "errCode为500 一般为服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/base_info.Swagger500Resp"
+                        }
+                    }
+                }
+            }
+        },
+        "/group/get_group_key_list": {
+            "post": {
+                "description": "获取群密钥列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "群组相关"
+                ],
+                "summary": "获取最近三天群密钥列表",
+                "operationId": "GetGroupKeyList",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "im token",
+                        "name": "token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "GroupID为要获取群成员的群ID",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/base_info.GetGroupKeyListReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "0": {
+                        "description": "",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/base_info.GetGroupKeyListResp"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/server_api_params.GroupKey"
                                             }
                                         }
                                     }
@@ -1422,7 +1477,7 @@ const docTemplate = `{
                                         "data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/server_api_params.GroupInfo"
+                                                "$ref": "#/definitions/Open_IM_pkg_proto_sdk_ws.GroupInfo"
                                             }
                                         }
                                     }
@@ -2159,7 +2214,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "content": {
-                                            "$ref": "#/definitions/Open_IM_internal_api_manage.TextElem"
+                                            "$ref": "#/definitions/manage.TextElem"
                                         }
                                     }
                                 }
@@ -2180,7 +2235,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "content": {
-                                            "$ref": "#/definitions/Open_IM_internal_api_manage.OANotificationElem"
+                                            "$ref": "#/definitions/manage.OANotificationElem"
                                         }
                                     }
                                 }
@@ -2516,7 +2571,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "content": {
-                                            "$ref": "#/definitions/Open_IM_internal_api_manage.TextElem"
+                                            "$ref": "#/definitions/manage.TextElem"
                                         }
                                     }
                                 }
@@ -2537,7 +2592,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "content": {
-                                            "$ref": "#/definitions/Open_IM_internal_api_manage.OANotificationElem"
+                                            "$ref": "#/definitions/manage.OANotificationElem"
                                         }
                                     }
                                 }
@@ -2558,7 +2613,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "content": {
-                                            "$ref": "#/definitions/Open_IM_internal_api_manage.RevokeElem"
+                                            "$ref": "#/definitions/manage.RevokeElem"
                                         }
                                     }
                                 }
@@ -4318,7 +4373,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/server_api_params.UserInfo"
+                                            "$ref": "#/definitions/Open_IM_pkg_proto_sdk_ws.UserInfo"
                                         }
                                     }
                                 }
@@ -4386,7 +4441,7 @@ const docTemplate = `{
                                         "Data": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/server_api_params.PublicUserInfo"
+                                                "$ref": "#/definitions/Open_IM_pkg_proto_sdk_ws.PublicUserInfo"
                                             }
                                         }
                                     }
@@ -4573,189 +4628,122 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "Open_IM_internal_api_manage.FileElem": {
+        "Open_IM_pkg_proto_sdk_ws.GroupInfo": {
             "type": "object",
             "properties": {
-                "fileName": {
-                    "type": "string"
-                },
-                "filePath": {
-                    "type": "string"
-                },
-                "fileSize": {
+                "applyMemberFriend": {
                     "type": "integer"
                 },
-                "sourceURL": {
+                "createTime": {
+                    "type": "integer"
+                },
+                "creatorUserID": {
                     "type": "string"
                 },
-                "uuid": {
+                "ex": {
                     "type": "string"
+                },
+                "faceURL": {
+                    "type": "string"
+                },
+                "groupID": {
+                    "type": "string"
+                },
+                "groupName": {
+                    "type": "string"
+                },
+                "groupType": {
+                    "type": "integer"
+                },
+                "introduction": {
+                    "type": "string"
+                },
+                "lookMemberInfo": {
+                    "type": "integer"
+                },
+                "memberCount": {
+                    "type": "integer"
+                },
+                "needVerification": {
+                    "type": "integer"
+                },
+                "notification": {
+                    "type": "string"
+                },
+                "notificationUpdateTime": {
+                    "type": "integer"
+                },
+                "notificationUserID": {
+                    "type": "string"
+                },
+                "ownerUserID": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 }
             }
         },
-        "Open_IM_internal_api_manage.OANotificationElem": {
+        "Open_IM_pkg_proto_sdk_ws.PublicUserInfo": {
             "type": "object",
-            "required": [
-                "notificationFaceURL",
-                "notificationName",
-                "notificationType",
-                "text"
-            ],
             "properties": {
                 "ex": {
                     "type": "string"
                 },
-                "fileElem": {
-                    "$ref": "#/definitions/Open_IM_internal_api_manage.FileElem"
+                "faceURL": {
+                    "type": "string"
                 },
-                "mixType": {
+                "gender": {
                     "type": "integer"
                 },
-                "notificationFaceURL": {
+                "nickname": {
                     "type": "string"
                 },
-                "notificationName": {
+                "pubKey": {
                     "type": "string"
                 },
-                "notificationType": {
-                    "type": "integer"
-                },
-                "pictureElem": {
-                    "$ref": "#/definitions/Open_IM_internal_api_manage.PictureElem"
-                },
-                "soundElem": {
-                    "$ref": "#/definitions/Open_IM_internal_api_manage.SoundElem"
-                },
-                "text": {
-                    "type": "string"
-                },
-                "url": {
-                    "type": "string"
-                },
-                "videoElem": {
-                    "$ref": "#/definitions/Open_IM_internal_api_manage.VideoElem"
-                }
-            }
-        },
-        "Open_IM_internal_api_manage.PictureBaseInfo": {
-            "type": "object",
-            "properties": {
-                "height": {
-                    "type": "integer"
-                },
-                "size": {
-                    "type": "integer"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "url": {
-                    "type": "string"
-                },
-                "uuid": {
-                    "type": "string"
-                },
-                "width": {
-                    "type": "integer"
-                }
-            }
-        },
-        "Open_IM_internal_api_manage.PictureElem": {
-            "type": "object",
-            "properties": {
-                "bigPicture": {
-                    "$ref": "#/definitions/Open_IM_internal_api_manage.PictureBaseInfo"
-                },
-                "snapshotPicture": {
-                    "$ref": "#/definitions/Open_IM_internal_api_manage.PictureBaseInfo"
-                },
-                "sourcePath": {
-                    "type": "string"
-                },
-                "sourcePicture": {
-                    "$ref": "#/definitions/Open_IM_internal_api_manage.PictureBaseInfo"
-                }
-            }
-        },
-        "Open_IM_internal_api_manage.RevokeElem": {
-            "type": "object",
-            "required": [
-                "revokeMsgClientID"
-            ],
-            "properties": {
-                "revokeMsgClientID": {
+                "userID": {
                     "type": "string"
                 }
             }
         },
-        "Open_IM_internal_api_manage.SoundElem": {
+        "Open_IM_pkg_proto_sdk_ws.UserInfo": {
             "type": "object",
             "properties": {
-                "dataSize": {
+                "appMangerLevel": {
                     "type": "integer"
                 },
-                "duration": {
+                "birth": {
                     "type": "integer"
                 },
-                "soundPath": {
-                    "type": "string"
-                },
-                "sourceURL": {
-                    "type": "string"
-                },
-                "uuid": {
-                    "type": "string"
-                }
-            }
-        },
-        "Open_IM_internal_api_manage.TextElem": {
-            "type": "object",
-            "required": [
-                "text"
-            ],
-            "properties": {
-                "text": {
-                    "type": "string"
-                }
-            }
-        },
-        "Open_IM_internal_api_manage.VideoElem": {
-            "type": "object",
-            "properties": {
-                "duration": {
+                "createTime": {
                     "type": "integer"
                 },
-                "snapshotHeight": {
+                "email": {
+                    "type": "string"
+                },
+                "ex": {
+                    "type": "string"
+                },
+                "faceURL": {
+                    "type": "string"
+                },
+                "gender": {
                     "type": "integer"
                 },
-                "snapshotPath": {
-                    "type": "string"
-                },
-                "snapshotSize": {
+                "globalRecvMsgOpt": {
                     "type": "integer"
                 },
-                "snapshotURL": {
+                "nickname": {
                     "type": "string"
                 },
-                "snapshotUUID": {
+                "phoneNumber": {
                     "type": "string"
                 },
-                "snapshotWidth": {
-                    "type": "integer"
-                },
-                "videoPath": {
+                "pubKey": {
                     "type": "string"
                 },
-                "videoSize": {
-                    "type": "integer"
-                },
-                "videoType": {
-                    "type": "string"
-                },
-                "videoURL": {
-                    "type": "string"
-                },
-                "videoUUID": {
+                "userID": {
                     "type": "string"
                 }
             }
@@ -6025,6 +6013,34 @@ const docTemplate = `{
                 }
             }
         },
+        "base_info.GetGroupKeyListReq": {
+            "type": "object",
+            "properties": {
+                "groupID": {
+                    "type": "string"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "operationID": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "integer"
+                }
+            }
+        },
+        "base_info.GetGroupKeyListResp": {
+            "type": "object",
+            "properties": {
+                "errCode": {
+                    "type": "integer"
+                },
+                "errMsg": {
+                    "type": "string"
+                }
+            }
+        },
         "base_info.GetGroupMembersInfoReq": {
             "type": "object",
             "required": [
@@ -6521,7 +6537,11 @@ const docTemplate = `{
             ],
             "properties": {
                 "roleLevel": {
-                    "type": "integer"
+                    "type": "integer",
+                    "enum": [
+                        1,
+                        3
+                    ]
                 },
                 "userID": {
                     "type": "string"
@@ -6652,6 +6672,12 @@ const docTemplate = `{
                 "groupID": {
                     "type": "string"
                 },
+                "inviterUserID": {
+                    "type": "string"
+                },
+                "joinSource": {
+                    "type": "integer"
+                },
                 "operationID": {
                     "type": "string"
                 },
@@ -6751,6 +6777,9 @@ const docTemplate = `{
                 "sessionType"
             ],
             "properties": {
+                "businessOperationID": {
+                    "type": "string"
+                },
                 "contentType": {
                     "type": "integer"
                 },
@@ -6758,6 +6787,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "isOnlineOnly": {
+                    "type": "boolean"
+                },
+                "notOfflinePush": {
                     "type": "boolean"
                 },
                 "offlinePushInfo": {
@@ -6798,6 +6830,9 @@ const docTemplate = `{
                 "sessionType"
             ],
             "properties": {
+                "businessOperationID": {
+                    "type": "string"
+                },
                 "contentType": {
                     "type": "integer"
                 },
@@ -6805,6 +6840,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "isOnlineOnly": {
+                    "type": "boolean"
+                },
+                "notOfflinePush": {
                     "type": "boolean"
                 },
                 "offlinePushInfo": {
@@ -7063,7 +7101,6 @@ const docTemplate = `{
             "required": [
                 "fromUserID",
                 "operationID",
-                "remark",
                 "toUserID"
             ],
             "properties": {
@@ -7129,6 +7166,9 @@ const docTemplate = `{
                 "operationID"
             ],
             "properties": {
+                "applyMemberFriend": {
+                    "type": "integer"
+                },
                 "ex": {
                     "type": "string"
                 },
@@ -7143,6 +7183,9 @@ const docTemplate = `{
                 },
                 "introduction": {
                     "type": "string"
+                },
+                "lookMemberInfo": {
+                    "type": "integer"
                 },
                 "needVerification": {
                     "type": "integer"
@@ -7461,6 +7504,10 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 32
                 },
+                "publicKey": {
+                    "type": "string",
+                    "maxLength": 64
+                },
                 "userID": {
                     "type": "string",
                     "maxLength": 64,
@@ -7581,6 +7628,10 @@ const docTemplate = `{
                     "type": "integer",
                     "maximum": 7,
                     "minimum": 1
+                },
+                "publicKey": {
+                    "type": "string",
+                    "maxLength": 64
                 },
                 "secret": {
                     "type": "string",
@@ -7724,7 +7775,7 @@ const docTemplate = `{
                 }
             }
         },
-        "internal_api_manage.FileElem": {
+        "manage.FileElem": {
             "type": "object",
             "properties": {
                 "fileName": {
@@ -7744,10 +7795,9 @@ const docTemplate = `{
                 }
             }
         },
-        "internal_api_manage.OANotificationElem": {
+        "manage.OANotificationElem": {
             "type": "object",
             "required": [
-                "notificationFaceURL",
                 "notificationName",
                 "notificationType",
                 "text"
@@ -7757,7 +7807,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "fileElem": {
-                    "$ref": "#/definitions/internal_api_manage.FileElem"
+                    "$ref": "#/definitions/manage.FileElem"
                 },
                 "mixType": {
                     "type": "integer"
@@ -7772,10 +7822,10 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "pictureElem": {
-                    "$ref": "#/definitions/internal_api_manage.PictureElem"
+                    "$ref": "#/definitions/manage.PictureElem"
                 },
                 "soundElem": {
-                    "$ref": "#/definitions/internal_api_manage.SoundElem"
+                    "$ref": "#/definitions/manage.SoundElem"
                 },
                 "text": {
                     "type": "string"
@@ -7784,11 +7834,11 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "videoElem": {
-                    "$ref": "#/definitions/internal_api_manage.VideoElem"
+                    "$ref": "#/definitions/manage.VideoElem"
                 }
             }
         },
-        "internal_api_manage.PictureBaseInfo": {
+        "manage.PictureBaseInfo": {
             "type": "object",
             "properties": {
                 "height": {
@@ -7811,24 +7861,24 @@ const docTemplate = `{
                 }
             }
         },
-        "internal_api_manage.PictureElem": {
+        "manage.PictureElem": {
             "type": "object",
             "properties": {
                 "bigPicture": {
-                    "$ref": "#/definitions/internal_api_manage.PictureBaseInfo"
+                    "$ref": "#/definitions/manage.PictureBaseInfo"
                 },
                 "snapshotPicture": {
-                    "$ref": "#/definitions/internal_api_manage.PictureBaseInfo"
+                    "$ref": "#/definitions/manage.PictureBaseInfo"
                 },
                 "sourcePath": {
                     "type": "string"
                 },
                 "sourcePicture": {
-                    "$ref": "#/definitions/internal_api_manage.PictureBaseInfo"
+                    "$ref": "#/definitions/manage.PictureBaseInfo"
                 }
             }
         },
-        "internal_api_manage.RevokeElem": {
+        "manage.RevokeElem": {
             "type": "object",
             "required": [
                 "revokeMsgClientID"
@@ -7839,7 +7889,7 @@ const docTemplate = `{
                 }
             }
         },
-        "internal_api_manage.SoundElem": {
+        "manage.SoundElem": {
             "type": "object",
             "properties": {
                 "dataSize": {
@@ -7859,7 +7909,7 @@ const docTemplate = `{
                 }
             }
         },
-        "internal_api_manage.TextElem": {
+        "manage.TextElem": {
             "type": "object",
             "required": [
                 "text"
@@ -7870,7 +7920,7 @@ const docTemplate = `{
                 }
             }
         },
-        "internal_api_manage.VideoElem": {
+        "manage.VideoElem": {
             "type": "object",
             "properties": {
                 "duration": {
@@ -8091,6 +8141,126 @@ const docTemplate = `{
                 }
             }
         },
+        "pkg_proto_sdk_ws.GroupInfo": {
+            "type": "object",
+            "properties": {
+                "applyMemberFriend": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "integer"
+                },
+                "creatorUserID": {
+                    "type": "string"
+                },
+                "ex": {
+                    "type": "string"
+                },
+                "faceURL": {
+                    "type": "string"
+                },
+                "groupID": {
+                    "type": "string"
+                },
+                "groupName": {
+                    "type": "string"
+                },
+                "groupType": {
+                    "type": "integer"
+                },
+                "introduction": {
+                    "type": "string"
+                },
+                "lookMemberInfo": {
+                    "type": "integer"
+                },
+                "memberCount": {
+                    "type": "integer"
+                },
+                "needVerification": {
+                    "type": "integer"
+                },
+                "notification": {
+                    "type": "string"
+                },
+                "notificationUpdateTime": {
+                    "type": "integer"
+                },
+                "notificationUserID": {
+                    "type": "string"
+                },
+                "ownerUserID": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                }
+            }
+        },
+        "pkg_proto_sdk_ws.PublicUserInfo": {
+            "type": "object",
+            "properties": {
+                "ex": {
+                    "type": "string"
+                },
+                "faceURL": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "integer"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "pubKey": {
+                    "type": "string"
+                },
+                "userID": {
+                    "type": "string"
+                }
+            }
+        },
+        "pkg_proto_sdk_ws.UserInfo": {
+            "type": "object",
+            "properties": {
+                "appMangerLevel": {
+                    "type": "integer"
+                },
+                "birth": {
+                    "type": "integer"
+                },
+                "createTime": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "ex": {
+                    "type": "string"
+                },
+                "faceURL": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "integer"
+                },
+                "globalRecvMsgOpt": {
+                    "type": "integer"
+                },
+                "nickname": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                },
+                "pubKey": {
+                    "type": "string"
+                },
+                "userID": {
+                    "type": "string"
+                }
+            }
+        },
         "server_api_params.Department": {
             "type": "object",
             "properties": {
@@ -8165,7 +8335,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "friendUser": {
-                    "$ref": "#/definitions/server_api_params.UserInfo"
+                    "$ref": "#/definitions/pkg_proto_sdk_ws.UserInfo"
                 },
                 "operatorUserID": {
                     "type": "string"
@@ -8228,47 +8398,20 @@ const docTemplate = `{
                 }
             }
         },
-        "server_api_params.GroupInfo": {
+        "server_api_params.GroupKey": {
             "type": "object",
             "properties": {
                 "createTime": {
                     "type": "integer"
                 },
-                "creatorUserID": {
-                    "type": "string"
-                },
                 "ex": {
-                    "type": "string"
-                },
-                "faceURL": {
                     "type": "string"
                 },
                 "groupID": {
                     "type": "string"
                 },
-                "groupName": {
+                "key": {
                     "type": "string"
-                },
-                "groupType": {
-                    "type": "integer"
-                },
-                "introduction": {
-                    "type": "string"
-                },
-                "memberCount": {
-                    "type": "integer"
-                },
-                "needVerification": {
-                    "type": "integer"
-                },
-                "notification": {
-                    "type": "string"
-                },
-                "ownerUserID": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "integer"
                 }
             }
         },
@@ -8276,6 +8419,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "appMangerLevel": {
+                    "description": "if \u003e0",
                     "type": "integer"
                 },
                 "ex": {
@@ -8285,6 +8429,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "groupID": {
+                    "type": "string"
+                },
+                "inviterUserID": {
                     "type": "string"
                 },
                 "joinSource": {
@@ -8317,7 +8464,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "groupInfo": {
-                    "$ref": "#/definitions/server_api_params.GroupInfo"
+                    "$ref": "#/definitions/pkg_proto_sdk_ws.GroupInfo"
                 },
                 "handleMsg": {
                     "type": "string"
@@ -8331,6 +8478,12 @@ const docTemplate = `{
                 "handleUserID": {
                     "type": "string"
                 },
+                "inviterUserID": {
+                    "type": "string"
+                },
+                "joinSource": {
+                    "type": "integer"
+                },
                 "reqMsg": {
                     "type": "string"
                 },
@@ -8338,7 +8491,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "userInfo": {
-                    "$ref": "#/definitions/server_api_params.PublicUserInfo"
+                    "$ref": "#/definitions/pkg_proto_sdk_ws.PublicUserInfo"
                 }
             }
         },
@@ -8400,26 +8553,6 @@ const docTemplate = `{
                 }
             }
         },
-        "server_api_params.PublicUserInfo": {
-            "type": "object",
-            "properties": {
-                "ex": {
-                    "type": "string"
-                },
-                "faceURL": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "integer"
-                },
-                "nickname": {
-                    "type": "string"
-                },
-                "userID": {
-                    "type": "string"
-                }
-            }
-        },
         "server_api_params.UserDepartmentMember": {
             "type": "object",
             "properties": {
@@ -8442,44 +8575,6 @@ const docTemplate = `{
                 },
                 "organizationUser": {
                     "$ref": "#/definitions/server_api_params.OrganizationUser"
-                }
-            }
-        },
-        "server_api_params.UserInfo": {
-            "type": "object",
-            "properties": {
-                "appMangerLevel": {
-                    "type": "integer"
-                },
-                "birth": {
-                    "type": "integer"
-                },
-                "createTime": {
-                    "type": "integer"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "ex": {
-                    "type": "string"
-                },
-                "faceURL": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "integer"
-                },
-                "globalRecvMsgOpt": {
-                    "type": "integer"
-                },
-                "nickname": {
-                    "type": "string"
-                },
-                "phoneNumber": {
-                    "type": "string"
-                },
-                "userID": {
-                    "type": "string"
                 }
             }
         },
