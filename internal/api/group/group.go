@@ -11,6 +11,7 @@ import (
 	open_im_sdk "Open_IM/pkg/proto/sdk_ws"
 	"Open_IM/pkg/utils"
 	"context"
+
 	"github.com/golang/protobuf/ptypes/wrappers"
 
 	"github.com/gin-gonic/gin"
@@ -1269,4 +1270,62 @@ func SetGroupMemberInfo(c *gin.Context) {
 	resp.ErrCode = respPb.CommonResp.ErrCode
 	log.NewInfo(req.OperationID, utils.GetSelfFuncName(), " api args ", resp)
 	c.JSON(http.StatusOK, resp)
+}
+
+// @Summary 获取最近三天群密钥列表
+// @Description 获取群密钥列表
+// @Tags 群组相关
+// @ID GetGroupKeyList
+// @Accept json
+// @Param token header string true "im token"
+// @Param req body api.GetGroupKeyReq true "GroupID为要获取群成员的群ID"
+// @Produce json
+// @Success 0 {object} api.GetGroupKeyResp{data=[]open_im_sdk.GroupKey}
+// @Failure 500 {object} api.Swagger500Resp "errCode为500 一般为服务器内部错误"
+// @Failure 400 {object} api.Swagger400Resp "errCode为400 一般为参数输入错误, token未带上等"
+// @Router /group/get_group_key_list [post]
+func GetGroupKeyList(c *gin.Context) {
+	params := api.GetGroupKeyListReq{}
+	if err := c.BindJSON(&params); err != nil {
+		log.NewError("0", "BindJSON failed ", err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{"errCode": 400, "errMsg": err.Error()})
+		return
+	}
+	req := &rpc.GetGroupKeyListReq{}
+	utils.CopyStructFields(req, &params)
+
+	var ok bool
+	var errInfo string
+	ok, req.OpUserID, errInfo = token_verify.GetUserIDFromToken(c.Request.Header.Get("token"), req.OperationID)
+	if !ok {
+		errMsg := req.OperationID + " " + "GetUserIDFromToken failed " + errInfo + " token:" + c.Request.Header.Get("token")
+		log.NewError(req.OperationID, errMsg)
+		c.JSON(http.StatusBadRequest, gin.H{"errCode": 500, "errMsg": errMsg})
+		return
+	}
+
+	log.NewInfo(req.OperationID, "GetGroupMemberList args ", req.String())
+
+	etcdConn := getcdv3.GetConn(config.Config.Etcd.EtcdSchema, strings.Join(config.Config.Etcd.EtcdAddr, ","), config.Config.RpcRegisterName.OpenImGroupName, req.OperationID)
+	if etcdConn == nil {
+		errMsg := req.OperationID + "getcdv3.GetConn == nil"
+		log.NewError(req.OperationID, errMsg)
+		c.JSON(http.StatusInternalServerError, gin.H{"errCode": 500, "errMsg": errMsg})
+		return
+	}
+	client := rpc.NewGroupClient(etcdConn)
+
+	RpcResp, err := client.GetGroupKeyList(context.Background(), req)
+	if err != nil {
+		log.NewError(req.OperationID, "GetGroupKeyList failed, ", err.Error(), req.String())
+		c.JSON(http.StatusInternalServerError, gin.H{"errCode": 500, "errMsg": err.Error()})
+		return
+	}
+
+	keyListResp := api.GetGroupKeyListResp{CommResp: api.CommResp{ErrCode: RpcResp.ErrCode, ErrMsg: RpcResp.ErrMsg}, KeyList: RpcResp.KeyList}
+	keyListResp.Data = jsonData.JsonDataList(keyListResp.KeyList)
+
+	log.NewInfo(req.OperationID, "GetGroupKeyList api return ", keyListResp)
+	c.JSON(http.StatusOK, keyListResp)
+
 }

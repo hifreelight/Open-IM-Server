@@ -31,11 +31,20 @@ func InsertIntoGroupKey(toInsertInfo db.GroupKey) error {
 	return nil
 }
 
-func GetGroupKeyByGroupID(groupID string) ([]db.GroupKey, error) {
-	var groupRequestList []db.GroupKey
-	err := db.DB.MysqlDB.DefaultGormDB().Table("group_keys").Where("group_id=?", groupID).Find(&groupRequestList).Error
+func GetLatestGroupKeyByGroupID(groupID string) ([]db.GroupKey, error) {
+	var groupKeyList []db.GroupKey
+	err := db.DB.MysqlDB.DefaultGormDB().Table("group_keys").Where("group_id=?", groupID).Limit(1).Order("create_time desc").Find(&groupKeyList).Error
 	if err != nil {
 		return nil, err
 	}
-	return groupRequestList, nil
+	return groupKeyList, nil
+}
+
+func GetGroupKeyListByGroupID(groupID string, start int, limit int) ([]db.GroupKey, error) {
+	var groupKeyList []db.GroupKey
+	err := db.DB.MysqlDB.DefaultGormDB().Table("group_keys").Where("group_id=?", groupID).Limit(limit).Offset(start).Order("create_time desc").Find(&groupKeyList).Error
+	if err != nil {
+		return nil, err
+	}
+	return groupKeyList, nil
 }

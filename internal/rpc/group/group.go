@@ -16,7 +16,11 @@ import (
 	pbConversation "Open_IM/pkg/proto/conversation"
 	pbGroup "Open_IM/pkg/proto/group"
 	open_im_sdk "Open_IM/pkg/proto/sdk_ws"
+	sdkws "Open_IM/pkg/proto/sdk_ws"
 	pbUser "Open_IM/pkg/proto/user"
+	crypto "Open_IM/pkg/utils/crypto"
+	"encoding/hex"
+
 	"Open_IM/pkg/utils"
 	"context"
 	"math/big"
@@ -118,12 +122,7 @@ func (s *groupServer) CreateGroup(ctx context.Context, req *pbGroup.CreateGroupR
 		return &pbGroup.CreateGroupResp{ErrCode: constant.ErrDB.ErrCode, ErrMsg: constant.ErrDB.ErrMsg}, http.WrapError(constant.ErrDB)
 	}
 
-	groupKey := db.GroupKey{}
-	groupKey.GroupID = groupId
-	err = imdb.InsertIntoGroupKey(groupKey)
-	if err != nil {
-		log.NewError(req.OperationID, "InsertIntoGroup failed, ", err.Error(), groupInfo)
-	}
+	UpdateKeyAndNotifyGroupMembers(req.OperationID, groupId)
 
 	var okUserIDList []string
 	resp := &pbGroup.CreateGroupResp{GroupInfo: &open_im_sdk.GroupInfo{}}
@@ -547,6 +546,44 @@ func (s *groupServer) GetGroupMemberList(ctx context.Context, req *pbGroup.GetGr
 	return &resp, nil
 }
 
+func (s *groupServer) GetGroupKeyList(ctx context.Context, req *pbGroup.GetGroupKeyListReq) (*pbGroup.GetGroupKeyListResp, error) {
+	// TODO: in group
+	// opInfo, err := imdb.GetGroupMemberInfoByGroupIDAndUserID(req.GroupID, req.OpUserID)
+
+	log.NewInfo(req.OperationID, "GetGroupKeyList args ", req.String())
+	var resp pbGroup.GetGroupKeyListResp
+	keyList, err := imdb.GetGroupKeyListByGroupID(req.GroupID, int(req.Start), int(req.Limit))
+	if err != nil {
+		resp.ErrCode = constant.ErrDB.ErrCode
+		resp.ErrMsg = constant.ErrDB.ErrMsg
+		log.NewError(req.OperationID, "GetGroupKeyListByGroupId failed,", req.GroupID, req.Start, req.Limit)
+		return &resp, nil
+	}
+
+	var userInfo sdkws.UserInfo
+	user, err := rocksCache.GetUserInfoFromCache(req.OpUserID)
+	if err != nil {
+		resp.ErrCode = constant.ErrDB.ErrCode
+		resp.ErrMsg = constant.ErrDB.ErrMsg
+		log.NewError(req.OperationID, "GetUserByUserID failed ", err.Error(), req.OpUserID)
+		return &resp, nil
+	}
+	utils.CopyStructFields(&userInfo, user)
+
+	for _, v := range keyList {
+		var node open_im_sdk.GroupKey
+		utils.CopyStructFields(&node, &v)
+
+		// encrypt
+		serializedCiphertext := crypto.Encrypt(userInfo.PubKey, node.Key, "")
+		node.Key = hex.EncodeToString(serializedCiphertext)
+		resp.KeyList = append(resp.KeyList, &node)
+	}
+	resp.ErrCode = 0
+	log.NewInfo(req.OperationID, "GetGroupKeyList rpc return ", resp.String())
+	return &resp, nil
+}
+
 func (s *groupServer) getGroupUserLevel(groupID, userID string) (int, error) {
 	opFlag := 0
 	if !token_verify.IsManagerUserID(userID) {
@@ -715,6 +752,8 @@ func (s *groupServer) KickGroupMember(ctx context.Context, req *pbGroup.KickGrou
 		}()
 
 	}
+
+	UpdateKeyAndNotifyGroupMembers(req.OperationID, req.GroupID)
 
 	log.NewInfo(req.OperationID, "GetGroupMemberList rpc return ", resp.String())
 	return &resp, nil
@@ -1022,6 +1061,7 @@ func (s *groupServer) JoinGroup(ctx context.Context, req *pbGroup.JoinGroupReq) 
 	//}
 
 	chat.JoinGroupApplicationNotification(req)
+	// UpdateKeyAndNotifyGroupMembers(req.OperationID, req.GroupID)
 	log.NewInfo(req.OperationID, "JoinGroup rpc return ")
 	return &pbGroup.JoinGroupResp{CommonResp: &pbGroup.CommonResp{ErrCode: 0, ErrMsg: ""}}, nil
 }
@@ -1116,6 +1156,9 @@ func (s *groupServer) QuitGroup(ctx context.Context, req *pbGroup.QuitGroupReq) 
 		}
 		chat.SuperGroupNotification(req.OperationID, req.OpUserID, req.OpUserID)
 	}
+
+	UpdateKeyAndNotifyGroupMembers(req.OperationID, req.GroupID)
+
 	log.NewInfo(req.OperationID, "rpc QuitGroup return ", pbGroup.QuitGroupResp{CommonResp: &pbGroup.CommonResp{ErrCode: 0, ErrMsg: ""}})
 	return &pbGroup.QuitGroupResp{CommonResp: &pbGroup.CommonResp{ErrCode: 0, ErrMsg: ""}}, nil
 }
@@ -2034,4 +2077,13 @@ func (s *groupServer) SetGroupMemberInfo(ctx context.Context, req *pbGroup.SetGr
 	}
 	log.NewInfo(req.OperationID, utils.GetSelfFuncName(), "resp: ", resp.String())
 	return resp, nil
+}
+
+func UpdateKeyAndNotifyGroupMembers(operationID, groupId string) {
+	err := imdb.InsertIntoGroupKey(db.GroupKey{GroupID: groupId})
+	if err != nil {
+		log.NewError(operationID, "InsertIntoGroupKey failed, ", err.Error(), groupId)
+	}
+	// TODO: notify encrypt key
+
 }
