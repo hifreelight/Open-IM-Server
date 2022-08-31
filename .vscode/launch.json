@@ -10,7 +10,182 @@
             "request": "launch",
             "mode": "debug",
             "program": "${file}"
-        }
+        },
+        {
+            "name": "1",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/open_im_api/main.go"
+        },
+        {
+            "name": "2",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/open_im_cms_api/main.go"
+        },
+        {
+            "name": "3",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_user/main.go"
+        },
+        {
+            "name": "4",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_friend/main.go",
+            "args": ["-port", "10120"]
+        },
+        {
+            "name": "5",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_group/main.go"
+        },
+        {
+            "name": "6",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_auth/main.go"
+        },
+        {
+            "name": "7",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_admin_cms/main.go"
+        },
+        {
+            "name": "8",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_message_cms/main.go"
+        },
+        {
+            "name": "9",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_statistics/main.go"
+        },
+        {
+            "name": "10",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_msg/main.go"
+        },
+        {
+            "name": "11",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_office/main.go"
+        },
+        {
+            "name": "12",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_organization/main.go"
+        },
+        {
+            "name": "13",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_conversation/main.go"
+        },
+        {
+            "name": "14",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/rpc/open_im_cache/main.go"
+        },
+        {
+            "name": "15",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/open_im_push/main.go"
+        },
+        {
+            "name": "16",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/open_im_msg_transfer/main.go"
+        },        
+        {
+            "name": "17",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/Open-IM-SDK-Core/ws_wrapper/cmd/open_im_sdk_server.go",
+            "args": [
+                "-openIM_api_port",
+                "10002",
+                "-openIM_ws_port",
+                "10001",
+                "-sdk_ws_port",
+                "10003",
+                "-openIM_log_level",
+                "6"
+            ]
+        },
+        {
+            "name": "18",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/open_im_msg_gateway/main.go"
+        },
+        {
+            "name": "19",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "cmd/open_im_demo/main.go"
+        },
 
+    ],
+    "compounds": [
+        {
+            "name": "Compound",
+            "configurations": [
+                "1",
+                "2",
+                "3",
+                "4",
+                "5",
+                "6",
+                "7",
+                "8",
+                "9",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "15",
+                "16",
+                "17",
+                "18",
+                "19"
+            ],
+            "presentation": {
+                "hidden": false,
+                "group": "",
+                "order": 1
+            }
+        }
     ]
 }

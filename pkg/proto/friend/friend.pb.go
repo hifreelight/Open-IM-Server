@@ -1883,7 +1883,7 @@ var file_friend_friend_proto_rawDesc = []byte{
 	0x20, 0x03, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x5f, 0x61, 0x70,
 	0x69, 0x5f, 0x70, 0x61, 0x72, 0x61, 0x6d, 0x73, 0x2e, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x52,
 	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x11, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x32, 0xa9, 0x08, 0x0a, 0x06, 0x66, 0x72,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x32, 0x9f, 0x07, 0x0a, 0x06, 0x66, 0x72,
 	0x69, 0x65, 0x6e, 0x64, 0x12, 0x38, 0x0a, 0x09, 0x61, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e,
 	0x64, 0x12, 0x14, 0x2e, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x2e, 0x41, 0x64, 0x64, 0x46, 0x72,
 	0x69, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x71, 0x1a, 0x15, 0x2e, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64,
@@ -1941,17 +1941,9 @@ var file_friend_friend_proto_rawDesc = []byte{
 	0x72, 0x74, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x12, 0x17, 0x2e, 0x66, 0x72, 0x69, 0x65, 0x6e,
 	0x64, 0x2e, 0x49, 0x6d, 0x70, 0x6f, 0x72, 0x74, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x52, 0x65,
 	0x71, 0x1a, 0x18, 0x2e, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x2e, 0x49, 0x6d, 0x70, 0x6f, 0x72,
-	0x74, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x12, 0x41, 0x0a, 0x14, 0x43,
-	0x68, 0x65, 0x63, 0x6b, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x46, 0x72, 0x6f, 0x6d, 0x43, 0x61,
-	0x63, 0x68, 0x65, 0x12, 0x13, 0x2e, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x2e, 0x49, 0x73, 0x46,
-	0x72, 0x69, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e, 0x66, 0x72, 0x69, 0x65, 0x6e,
-	0x64, 0x2e, 0x49, 0x73, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x12, 0x45,
-	0x0a, 0x13, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x42, 0x6c, 0x6f, 0x63, 0x6b, 0x46, 0x72, 0x6f, 0x6d,
-	0x43, 0x61, 0x63, 0x68, 0x65, 0x12, 0x18, 0x2e, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x2e, 0x49,
-	0x73, 0x49, 0x6e, 0x42, 0x6c, 0x61, 0x63, 0x6b, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a,
-	0x14, 0x2e, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x2e, 0x49, 0x73, 0x46, 0x72, 0x69, 0x65, 0x6e,
-	0x64, 0x52, 0x65, 0x73, 0x70, 0x42, 0x11, 0x5a, 0x0f, 0x2e, 0x2f, 0x66, 0x72, 0x69, 0x65, 0x6e,
-	0x64, 0x3b, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x74, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x52, 0x65, 0x73, 0x70, 0x42, 0x11, 0x5a, 0x0f, 0x2e,
+	0x2f, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x3b, 0x66, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -2043,25 +2035,21 @@ var file_friend_friend_proto_depIdxs = []int32{
 	25, // 36: friend.friend.addFriendResponse:input_type -> friend.AddFriendResponseReq
 	27, // 37: friend.friend.setFriendRemark:input_type -> friend.SetFriendRemarkReq
 	6,  // 38: friend.friend.importFriend:input_type -> friend.ImportFriendReq
-	19, // 39: friend.friend.CheckFriendFromCache:input_type -> friend.IsFriendReq
-	21, // 40: friend.friend.CheckBlockFromCache:input_type -> friend.IsInBlackListReq
-	5,  // 41: friend.friend.addFriend:output_type -> friend.AddFriendResp
-	10, // 42: friend.friend.getFriendApplyList:output_type -> friend.GetFriendApplyListResp
-	30, // 43: friend.friend.getSelfApplyList:output_type -> friend.GetSelfApplyListResp
-	12, // 44: friend.friend.getFriendList:output_type -> friend.GetFriendListResp
-	14, // 45: friend.friend.addBlacklist:output_type -> friend.AddBlacklistResp
-	16, // 46: friend.friend.removeBlacklist:output_type -> friend.RemoveBlacklistResp
-	20, // 47: friend.friend.isFriend:output_type -> friend.IsFriendResp
-	22, // 48: friend.friend.isInBlackList:output_type -> friend.IsInBlackListResp
-	18, // 49: friend.friend.getBlacklist:output_type -> friend.GetBlacklistResp
-	24, // 50: friend.friend.deleteFriend:output_type -> friend.DeleteFriendResp
-	26, // 51: friend.friend.addFriendResponse:output_type -> friend.AddFriendResponseResp
-	28, // 52: friend.friend.setFriendRemark:output_type -> friend.SetFriendRemarkResp
-	8,  // 53: friend.friend.importFriend:output_type -> friend.ImportFriendResp
-	20, // 54: friend.friend.CheckFriendFromCache:output_type -> friend.IsFriendResp
-	20, // 55: friend.friend.CheckBlockFromCache:output_type -> friend.IsFriendResp
-	41, // [41:56] is the sub-list for method output_type
-	26, // [26:41] is the sub-list for method input_type
+	5,  // 39: friend.friend.addFriend:output_type -> friend.AddFriendResp
+	10, // 40: friend.friend.getFriendApplyList:output_type -> friend.GetFriendApplyListResp
+	30, // 41: friend.friend.getSelfApplyList:output_type -> friend.GetSelfApplyListResp
+	12, // 42: friend.friend.getFriendList:output_type -> friend.GetFriendListResp
+	14, // 43: friend.friend.addBlacklist:output_type -> friend.AddBlacklistResp
+	16, // 44: friend.friend.removeBlacklist:output_type -> friend.RemoveBlacklistResp
+	20, // 45: friend.friend.isFriend:output_type -> friend.IsFriendResp
+	22, // 46: friend.friend.isInBlackList:output_type -> friend.IsInBlackListResp
+	18, // 47: friend.friend.getBlacklist:output_type -> friend.GetBlacklistResp
+	24, // 48: friend.friend.deleteFriend:output_type -> friend.DeleteFriendResp
+	26, // 49: friend.friend.addFriendResponse:output_type -> friend.AddFriendResponseResp
+	28, // 50: friend.friend.setFriendRemark:output_type -> friend.SetFriendRemarkResp
+	8,  // 51: friend.friend.importFriend:output_type -> friend.ImportFriendResp
+	39, // [39:52] is the sub-list for method output_type
+	26, // [26:39] is the sub-list for method input_type
 	26, // [26:26] is the sub-list for extension type_name
 	26, // [26:26] is the sub-list for extension extendee
 	0,  // [0:26] is the sub-list for field type_name
@@ -2492,8 +2480,6 @@ type FriendClient interface {
 	AddFriendResponse(ctx context.Context, in *AddFriendResponseReq, opts ...grpc.CallOption) (*AddFriendResponseResp, error)
 	SetFriendRemark(ctx context.Context, in *SetFriendRemarkReq, opts ...grpc.CallOption) (*SetFriendRemarkResp, error)
 	ImportFriend(ctx context.Context, in *ImportFriendReq, opts ...grpc.CallOption) (*ImportFriendResp, error)
-	CheckFriendFromCache(ctx context.Context, in *IsFriendReq, opts ...grpc.CallOption) (*IsFriendResp, error)
-	CheckBlockFromCache(ctx context.Context, in *IsInBlackListReq, opts ...grpc.CallOption) (*IsFriendResp, error)
 }
 
 type friendClient struct {
@@ -2621,24 +2607,6 @@ func (c *friendClient) ImportFriend(ctx context.Context, in *ImportFriendReq, op
 	return out, nil
 }
 
-func (c *friendClient) CheckFriendFromCache(ctx context.Context, in *IsFriendReq, opts ...grpc.CallOption) (*IsFriendResp, error) {
-	out := new(IsFriendResp)
-	err := c.cc.Invoke(ctx, "/friend.friend/CheckFriendFromCache", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *friendClient) CheckBlockFromCache(ctx context.Context, in *IsInBlackListReq, opts ...grpc.CallOption) (*IsFriendResp, error) {
-	out := new(IsFriendResp)
-	err := c.cc.Invoke(ctx, "/friend.friend/CheckBlockFromCache", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // FriendServer is the server API for Friend service.
 type FriendServer interface {
 	// rpc getFriendsInfo(GetFriendsInfoReq) returns(GetFriendInfoResp);
@@ -2655,8 +2623,6 @@ type FriendServer interface {
 	AddFriendResponse(context.Context, *AddFriendResponseReq) (*AddFriendResponseResp, error)
 	SetFriendRemark(context.Context, *SetFriendRemarkReq) (*SetFriendRemarkResp, error)
 	ImportFriend(context.Context, *ImportFriendReq) (*ImportFriendResp, error)
-	CheckFriendFromCache(context.Context, *IsFriendReq) (*IsFriendResp, error)
-	CheckBlockFromCache(context.Context, *IsInBlackListReq) (*IsFriendResp, error)
 }
 
 // UnimplementedFriendServer can be embedded to have forward compatible implementations.
@@ -2701,12 +2667,6 @@ func (*UnimplementedFriendServer) SetFriendRemark(context.Context, *SetFriendRem
 }
 func (*UnimplementedFriendServer) ImportFriend(context.Context, *ImportFriendReq) (*ImportFriendResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ImportFriend not implemented")
-}
-func (*UnimplementedFriendServer) CheckFriendFromCache(context.Context, *IsFriendReq) (*IsFriendResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CheckFriendFromCache not implemented")
-}
-func (*UnimplementedFriendServer) CheckBlockFromCache(context.Context, *IsInBlackListReq) (*IsFriendResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CheckBlockFromCache not implemented")
 }
 
 func RegisterFriendServer(s *grpc.Server, srv FriendServer) {
@@ -2947,42 +2907,6 @@ func _Friend_ImportFriend_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Friend_CheckFriendFromCache_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IsFriendReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FriendServer).CheckFriendFromCache(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/friend.friend/CheckFriendFromCache",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FriendServer).CheckFriendFromCache(ctx, req.(*IsFriendReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Friend_CheckBlockFromCache_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(IsInBlackListReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(FriendServer).CheckBlockFromCache(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/friend.friend/CheckBlockFromCache",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(FriendServer).CheckBlockFromCache(ctx, req.(*IsInBlackListReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 var _Friend_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "friend.friend",
 	HandlerType: (*FriendServer)(nil),
@@ -3038,14 +2962,6 @@ var _Friend_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "importFriend",
 			Handler:    _Friend_ImportFriend_Handler,
-		},
-		{
-			MethodName: "CheckFriendFromCache",
-			Handler:    _Friend_CheckFriendFromCache_Handler,
-		},
-		{
-			MethodName: "CheckBlockFromCache",
-			Handler:    _Friend_CheckBlockFromCache_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
