@@ -80,10 +80,16 @@ message UserInfo{
   uint32 birth = 6;
   string email = 7;
   string ex = 8;
-  uint32 createTime = 9;
-  int32 appMangerLevel = 10;
-  int32  globalRecvMsgOpt = 11;
-  string pubKey = 12;
+  string createIp = 9;
+  uint32 createTime = 10;
+  string LastLoginIp =11;
+  uint32 LastLoginTime = 12;
+  int32  LoginTimes = 13;
+  int32 LoginLimit = 14;
+  int32 appMangerLevel = 15;
+  int32  globalRecvMsgOpt = 16;
+  string  invitationCode = 17;
+  string pubKey = 18;
 }
 
 message FriendInfo{
@@ -271,6 +277,8 @@ message MsgData {
   OfflinePushInfo offlinePushInfo = 19;
   repeated string atUserIDList = 20;
   bytes msgDataList = 21;
+  string attachedInfo = 22;
+  string  ex = 23;
 
 }
 message OfflinePushInfo{
@@ -494,6 +502,7 @@ message UserInfoUpdatedTips{
 //////////////////////conversation/////////////////////
 message ConversationUpdateTips{
  string UserID = 1;
+ repeated string conversationIDList = 2;
 }
 
 message ConversationSetPrivateTips{
@@ -529,6 +538,7 @@ message SignalReq {
       SignalAcceptReq accept = 4;
       SignalHungUpReq hungUp = 5;
       SignalRejectReq reject = 6;
+      SignalGetRoomByGroupIDReq GetRoomByGroupID = 7;
   }
 }
 
@@ -540,6 +550,7 @@ message SignalResp {
     SignalAcceptReply accept = 4;
     SignalHungUpReply hungUp = 5;
     SignalRejectReply reject = 6;
+    SignalGetRoomByGroupIDReply GetRoomByGroupID = 7;
   }
 }
 
@@ -635,6 +646,19 @@ message SignalRejectReq {
 
 message SignalRejectReply {
 
+}
+
+message SignalGetRoomByGroupIDReq {
+  string opUserID = 1;
+  string groupID = 2;
+}
+
+message SignalGetRoomByGroupIDReply {
+  InvitationInfo invitation = 1;
+  repeated string onConnectingUserIDList = 2;
+  string token = 3;
+  string roomID = 4;
+  string liveURL = 5;
 }
 
 

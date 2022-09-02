@@ -85,12 +85,27 @@ type GetGroupKeyListResp struct {
 type GetGroupAllMemberReq struct {
 	GroupID     string `json:"groupID" binding:"required"`
 	OperationID string `json:"operationID" binding:"required"`
+	Offset      int32  `json:"offset"`
+	Count       int32  `json:"count"`
 }
 type GetGroupAllMemberResp struct {
 	CommResp
 	MemberList []*open_im_sdk.GroupMemberFullInfo `json:"-"`
 	Data       []map[string]interface{}           `json:"data" swaggerignore:"true"`
 }
+
+//
+//type GetGroupAllMemberListBySplitReq struct {
+//	GroupID     string `json:"groupID" binding:"required"`
+//	OperationID string `json:"operationID" binding:"required"`
+//	Offset      int32  `json:"offset" binding:"required"`
+//	Count       int32  `json:"count" binding:"required"`
+//}
+//type GetGroupAllMemberListBySplitResp struct {
+//	CommResp
+//	MemberList []*open_im_sdk.GroupMemberFullInfo `json:"-"`
+//	Data       []map[string]interface{}           `json:"data" swaggerignore:"true"`
+//}
 
 type CreateGroupReq struct {
 	MemberList   []*GroupAddMemberInfo `json:"memberList"`
@@ -200,7 +215,7 @@ type SetGroupInfoReq struct {
 	FaceURL           string `json:"faceURL"`
 	Ex                string `json:"ex"`
 	OperationID       string `json:"operationID" binding:"required"`
-	NeedVerification  *int32 `json:"needVerification" `
+	NeedVerification  *int32 `json:"needVerification"`
 	LookMemberInfo    *int32 `json:"lookMemberInfo"`
 	ApplyMemberFriend *int32 `json:"applyMemberFriend"`
 }
@@ -285,4 +300,15 @@ type SetGroupMemberInfoReq struct {
 
 type SetGroupMemberInfoResp struct {
 	CommResp
+}
+
+type GetGroupAbstractInfoReq struct {
+	OperationID string `json:"operationID"`
+	GroupID     string `json:"groupID"`
+}
+
+type GetGroupAbstractInfoResp struct {
+	CommResp
+	GroupMemberNumber   int32  `json:"groupMemberNumber"`
+	GroupMemberListHash uint64 `json:"groupMemberListHash"`
 }

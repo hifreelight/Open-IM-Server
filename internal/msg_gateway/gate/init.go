@@ -6,8 +6,9 @@ import (
 
 	"Open_IM/pkg/statistics"
 	"fmt"
-	"github.com/go-playground/validator/v10"
 	"sync"
+
+	"github.com/go-playground/validator/v10"
 )
 
 var (

@@ -7,6 +7,7 @@
 package admin_cms
 
 import (
+	sdk_ws "Open_IM/pkg/proto/sdk_ws"
 	context "context"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
@@ -134,28 +135,398 @@ func (x *AdminLoginResp) GetToken() string {
 	return ""
 }
 
+type AddUserRegisterAddFriendIDListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OperationID string   `protobuf:"bytes,1,opt,name=operationID,proto3" json:"operationID,omitempty"`
+	UserIDList  []string `protobuf:"bytes,2,rep,name=userIDList,proto3" json:"userIDList,omitempty"`
+}
+
+func (x *AddUserRegisterAddFriendIDListReq) Reset() {
+	*x = AddUserRegisterAddFriendIDListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_admin_cms_admin_cms_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddUserRegisterAddFriendIDListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddUserRegisterAddFriendIDListReq) ProtoMessage() {}
+
+func (x *AddUserRegisterAddFriendIDListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_admin_cms_admin_cms_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddUserRegisterAddFriendIDListReq.ProtoReflect.Descriptor instead.
+func (*AddUserRegisterAddFriendIDListReq) Descriptor() ([]byte, []int) {
+	return file_admin_cms_admin_cms_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *AddUserRegisterAddFriendIDListReq) GetOperationID() string {
+	if x != nil {
+		return x.OperationID
+	}
+	return ""
+}
+
+func (x *AddUserRegisterAddFriendIDListReq) GetUserIDList() []string {
+	if x != nil {
+		return x.UserIDList
+	}
+	return nil
+}
+
+type AddUserRegisterAddFriendIDListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *AddUserRegisterAddFriendIDListResp) Reset() {
+	*x = AddUserRegisterAddFriendIDListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_admin_cms_admin_cms_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *AddUserRegisterAddFriendIDListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddUserRegisterAddFriendIDListResp) ProtoMessage() {}
+
+func (x *AddUserRegisterAddFriendIDListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_admin_cms_admin_cms_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddUserRegisterAddFriendIDListResp.ProtoReflect.Descriptor instead.
+func (*AddUserRegisterAddFriendIDListResp) Descriptor() ([]byte, []int) {
+	return file_admin_cms_admin_cms_proto_rawDescGZIP(), []int{3}
+}
+
+type ReduceUserRegisterAddFriendIDListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OperationID string   `protobuf:"bytes,1,opt,name=operationID,proto3" json:"operationID,omitempty"`
+	Operation   int32    `protobuf:"varint,2,opt,name=operation,proto3" json:"operation,omitempty"`
+	UserIDList  []string `protobuf:"bytes,3,rep,name=userIDList,proto3" json:"userIDList,omitempty"`
+}
+
+func (x *ReduceUserRegisterAddFriendIDListReq) Reset() {
+	*x = ReduceUserRegisterAddFriendIDListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_admin_cms_admin_cms_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReduceUserRegisterAddFriendIDListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReduceUserRegisterAddFriendIDListReq) ProtoMessage() {}
+
+func (x *ReduceUserRegisterAddFriendIDListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_admin_cms_admin_cms_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReduceUserRegisterAddFriendIDListReq.ProtoReflect.Descriptor instead.
+func (*ReduceUserRegisterAddFriendIDListReq) Descriptor() ([]byte, []int) {
+	return file_admin_cms_admin_cms_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ReduceUserRegisterAddFriendIDListReq) GetOperationID() string {
+	if x != nil {
+		return x.OperationID
+	}
+	return ""
+}
+
+func (x *ReduceUserRegisterAddFriendIDListReq) GetOperation() int32 {
+	if x != nil {
+		return x.Operation
+	}
+	return 0
+}
+
+func (x *ReduceUserRegisterAddFriendIDListReq) GetUserIDList() []string {
+	if x != nil {
+		return x.UserIDList
+	}
+	return nil
+}
+
+type ReduceUserRegisterAddFriendIDListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *ReduceUserRegisterAddFriendIDListResp) Reset() {
+	*x = ReduceUserRegisterAddFriendIDListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_admin_cms_admin_cms_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReduceUserRegisterAddFriendIDListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReduceUserRegisterAddFriendIDListResp) ProtoMessage() {}
+
+func (x *ReduceUserRegisterAddFriendIDListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_admin_cms_admin_cms_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReduceUserRegisterAddFriendIDListResp.ProtoReflect.Descriptor instead.
+func (*ReduceUserRegisterAddFriendIDListResp) Descriptor() ([]byte, []int) {
+	return file_admin_cms_admin_cms_proto_rawDescGZIP(), []int{5}
+}
+
+type GetUserRegisterAddFriendIDListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OperationID string                    `protobuf:"bytes,1,opt,name=operationID,proto3" json:"operationID,omitempty"`
+	Pagination  *sdk_ws.RequestPagination `protobuf:"bytes,2,opt,name=Pagination,proto3" json:"Pagination,omitempty"`
+}
+
+func (x *GetUserRegisterAddFriendIDListReq) Reset() {
+	*x = GetUserRegisterAddFriendIDListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_admin_cms_admin_cms_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserRegisterAddFriendIDListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserRegisterAddFriendIDListReq) ProtoMessage() {}
+
+func (x *GetUserRegisterAddFriendIDListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_admin_cms_admin_cms_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserRegisterAddFriendIDListReq.ProtoReflect.Descriptor instead.
+func (*GetUserRegisterAddFriendIDListReq) Descriptor() ([]byte, []int) {
+	return file_admin_cms_admin_cms_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetUserRegisterAddFriendIDListReq) GetOperationID() string {
+	if x != nil {
+		return x.OperationID
+	}
+	return ""
+}
+
+func (x *GetUserRegisterAddFriendIDListReq) GetPagination() *sdk_ws.RequestPagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
+type GetUserRegisterAddFriendIDListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserInfoList []*sdk_ws.UserInfo         `protobuf:"bytes,1,rep,name=UserInfoList,proto3" json:"UserInfoList,omitempty"`
+	Pagination   *sdk_ws.ResponsePagination `protobuf:"bytes,2,opt,name=Pagination,proto3" json:"Pagination,omitempty"`
+}
+
+func (x *GetUserRegisterAddFriendIDListResp) Reset() {
+	*x = GetUserRegisterAddFriendIDListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_admin_cms_admin_cms_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserRegisterAddFriendIDListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserRegisterAddFriendIDListResp) ProtoMessage() {}
+
+func (x *GetUserRegisterAddFriendIDListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_admin_cms_admin_cms_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserRegisterAddFriendIDListResp.ProtoReflect.Descriptor instead.
+func (*GetUserRegisterAddFriendIDListResp) Descriptor() ([]byte, []int) {
+	return file_admin_cms_admin_cms_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetUserRegisterAddFriendIDListResp) GetUserInfoList() []*sdk_ws.UserInfo {
+	if x != nil {
+		return x.UserInfoList
+	}
+	return nil
+}
+
+func (x *GetUserRegisterAddFriendIDListResp) GetPagination() *sdk_ws.ResponsePagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
 var File_admin_cms_admin_cms_proto protoreflect.FileDescriptor
 
 var file_admin_cms_admin_cms_proto_rawDesc = []byte{
 	0x0a, 0x19, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x2f, 0x61, 0x64, 0x6d, 0x69,
 	0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x09, 0x61, 0x64, 0x6d,
-	0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x22, 0x63, 0x0a, 0x0d, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x4c,
-	0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x20, 0x0a, 0x0b, 0x4f, 0x70, 0x65, 0x72, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x4f, 0x70,
-	0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07, 0x41, 0x64, 0x6d,
-	0x69, 0x6e, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x41, 0x64, 0x6d, 0x69,
-	0x6e, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x18, 0x03, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x22, 0x26, 0x0a, 0x0e, 0x41,
-	0x64, 0x6d, 0x69, 0x6e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x12, 0x14, 0x0a,
-	0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f,
-	0x6b, 0x65, 0x6e, 0x32, 0x4d, 0x0a, 0x08, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x43, 0x4d, 0x53, 0x12,
+	0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x1a, 0x21, 0x4f, 0x70, 0x65, 0x6e, 0x5f, 0x49, 0x4d, 0x2f,
+	0x70, 0x6b, 0x67, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x73, 0x64, 0x6b, 0x5f, 0x77, 0x73,
+	0x2f, 0x77, 0x73, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x63, 0x0a, 0x0d, 0x41, 0x64, 0x6d,
+	0x69, 0x6e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x12, 0x20, 0x0a, 0x0b, 0x4f, 0x70,
+	0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0b, 0x4f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x18, 0x0a, 0x07,
+	0x41, 0x64, 0x6d, 0x69, 0x6e, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x41,
+	0x64, 0x6d, 0x69, 0x6e, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74,
+	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x22, 0x26,
+	0x0a, 0x0e, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x73, 0x70,
+	0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x65, 0x0a, 0x21, 0x41, 0x64, 0x64, 0x55, 0x73, 0x65,
+	0x72, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65,
+	0x6e, 0x64, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x20, 0x0a, 0x0b, 0x6f,
+	0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x0b, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x1e, 0x0a,
+	0x0a, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x02, 0x20, 0x03, 0x28,
+	0x09, 0x52, 0x0a, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x24, 0x0a,
+	0x22, 0x41, 0x64, 0x64, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72,
+	0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x22, 0x86, 0x01, 0x0a, 0x24, 0x52, 0x65, 0x64, 0x75, 0x63, 0x65, 0x55, 0x73,
+	0x65, 0x72, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69,
+	0x65, 0x6e, 0x64, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x20, 0x0a, 0x0b,
+	0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0b, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x1c,
+	0x0a, 0x09, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x05, 0x52, 0x09, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1e, 0x0a, 0x0a,
+	0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x03, 0x20, 0x03, 0x28, 0x09,
+	0x52, 0x0a, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x27, 0x0a, 0x25,
+	0x52, 0x65, 0x64, 0x75, 0x63, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74,
+	0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x49, 0x44, 0x4c, 0x69, 0x73,
+	0x74, 0x52, 0x65, 0x73, 0x70, 0x22, 0x8b, 0x01, 0x0a, 0x21, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65,
+	0x72, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65,
+	0x6e, 0x64, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x20, 0x0a, 0x0b, 0x6f,
+	0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x0b, 0x6f, 0x70, 0x65, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x44, 0x12, 0x44, 0x0a,
+	0x0a, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x24, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x5f, 0x61, 0x70, 0x69, 0x5f, 0x70,
+	0x61, 0x72, 0x61, 0x6d, 0x73, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x50, 0x61, 0x67,
+	0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74,
+	0x69, 0x6f, 0x6e, 0x22, 0xac, 0x01, 0x0a, 0x22, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52,
+	0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64,
+	0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x12, 0x3f, 0x0a, 0x0c, 0x55, 0x73,
+	0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x1b, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x5f, 0x61, 0x70, 0x69, 0x5f, 0x70, 0x61,
+	0x72, 0x61, 0x6d, 0x73, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x0c, 0x55,
+	0x73, 0x65, 0x72, 0x49, 0x6e, 0x66, 0x6f, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x45, 0x0a, 0x0a, 0x50,
+	0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x25, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x65, 0x72, 0x5f, 0x61, 0x70, 0x69, 0x5f, 0x70, 0x61, 0x72,
+	0x61, 0x6d, 0x73, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x50, 0x61, 0x67, 0x69,
+	0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x0a, 0x50, 0x61, 0x67, 0x69, 0x6e, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x32, 0xd4, 0x03, 0x0a, 0x08, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x43, 0x4d, 0x53, 0x12,
 	0x41, 0x0a, 0x0a, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x12, 0x18, 0x2e,
 	0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x2e, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x4c,
 	0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65, 0x71, 0x1a, 0x19, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f,
 	0x63, 0x6d, 0x73, 0x2e, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x52, 0x65,
-	0x73, 0x70, 0x42, 0x17, 0x5a, 0x15, 0x2e, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x63, 0x6d,
-	0x73, 0x3b, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x33,
+	0x73, 0x70, 0x12, 0x7d, 0x0a, 0x1e, 0x41, 0x64, 0x64, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x67,
+	0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x49, 0x44,
+	0x4c, 0x69, 0x73, 0x74, 0x12, 0x2c, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73,
+	0x2e, 0x41, 0x64, 0x64, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72,
+	0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x52,
+	0x65, 0x71, 0x1a, 0x2d, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x2e, 0x41,
+	0x64, 0x64, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64,
+	0x64, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73,
+	0x70, 0x12, 0x86, 0x01, 0x0a, 0x21, 0x52, 0x65, 0x64, 0x75, 0x63, 0x65, 0x55, 0x73, 0x65, 0x72,
+	0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e,
+	0x64, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x2f, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f,
+	0x63, 0x6d, 0x73, 0x2e, 0x52, 0x65, 0x64, 0x75, 0x63, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
+	0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x49,
+	0x44, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x30, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e,
+	0x5f, 0x63, 0x6d, 0x73, 0x2e, 0x52, 0x65, 0x64, 0x75, 0x63, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52,
+	0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64,
+	0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x12, 0x7d, 0x0a, 0x1e, 0x47, 0x65,
+	0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64,
+	0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x2c, 0x2e, 0x61,
+	0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72,
+	0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e,
+	0x64, 0x49, 0x44, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x2d, 0x2e, 0x61, 0x64, 0x6d,
+	0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x2e, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65,
+	0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x41, 0x64, 0x64, 0x46, 0x72, 0x69, 0x65, 0x6e, 0x64, 0x49,
+	0x44, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x42, 0x17, 0x5a, 0x15, 0x2e, 0x2f, 0x61,
+	0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x63, 0x6d, 0x73, 0x3b, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x5f, 0x63,
+	0x6d, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -170,19 +541,37 @@ func file_admin_cms_admin_cms_proto_rawDescGZIP() []byte {
 	return file_admin_cms_admin_cms_proto_rawDescData
 }
 
-var file_admin_cms_admin_cms_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_admin_cms_admin_cms_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_admin_cms_admin_cms_proto_goTypes = []interface{}{
-	(*AdminLoginReq)(nil),  // 0: admin_cms.AdminLoginReq
-	(*AdminLoginResp)(nil), // 1: admin_cms.AdminLoginResp
+	(*AdminLoginReq)(nil),                         // 0: admin_cms.AdminLoginReq
+	(*AdminLoginResp)(nil),                        // 1: admin_cms.AdminLoginResp
+	(*AddUserRegisterAddFriendIDListReq)(nil),     // 2: admin_cms.AddUserRegisterAddFriendIDListReq
+	(*AddUserRegisterAddFriendIDListResp)(nil),    // 3: admin_cms.AddUserRegisterAddFriendIDListResp
+	(*ReduceUserRegisterAddFriendIDListReq)(nil),  // 4: admin_cms.ReduceUserRegisterAddFriendIDListReq
+	(*ReduceUserRegisterAddFriendIDListResp)(nil), // 5: admin_cms.ReduceUserRegisterAddFriendIDListResp
+	(*GetUserRegisterAddFriendIDListReq)(nil),     // 6: admin_cms.GetUserRegisterAddFriendIDListReq
+	(*GetUserRegisterAddFriendIDListResp)(nil),    // 7: admin_cms.GetUserRegisterAddFriendIDListResp
+	(*sdk_ws.RequestPagination)(nil),              // 8: server_api_params.RequestPagination
+	(*sdk_ws.UserInfo)(nil),                       // 9: server_api_params.UserInfo
+	(*sdk_ws.ResponsePagination)(nil),             // 10: server_api_params.ResponsePagination
 }
 var file_admin_cms_admin_cms_proto_depIdxs = []int32{
-	0, // 0: admin_cms.adminCMS.AdminLogin:input_type -> admin_cms.AdminLoginReq
-	1, // 1: admin_cms.adminCMS.AdminLogin:output_type -> admin_cms.AdminLoginResp
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	8,  // 0: admin_cms.GetUserRegisterAddFriendIDListReq.Pagination:type_name -> server_api_params.RequestPagination
+	9,  // 1: admin_cms.GetUserRegisterAddFriendIDListResp.UserInfoList:type_name -> server_api_params.UserInfo
+	10, // 2: admin_cms.GetUserRegisterAddFriendIDListResp.Pagination:type_name -> server_api_params.ResponsePagination
+	0,  // 3: admin_cms.adminCMS.AdminLogin:input_type -> admin_cms.AdminLoginReq
+	2,  // 4: admin_cms.adminCMS.AddUserRegisterAddFriendIDList:input_type -> admin_cms.AddUserRegisterAddFriendIDListReq
+	4,  // 5: admin_cms.adminCMS.ReduceUserRegisterAddFriendIDList:input_type -> admin_cms.ReduceUserRegisterAddFriendIDListReq
+	6,  // 6: admin_cms.adminCMS.GetUserRegisterAddFriendIDList:input_type -> admin_cms.GetUserRegisterAddFriendIDListReq
+	1,  // 7: admin_cms.adminCMS.AdminLogin:output_type -> admin_cms.AdminLoginResp
+	3,  // 8: admin_cms.adminCMS.AddUserRegisterAddFriendIDList:output_type -> admin_cms.AddUserRegisterAddFriendIDListResp
+	5,  // 9: admin_cms.adminCMS.ReduceUserRegisterAddFriendIDList:output_type -> admin_cms.ReduceUserRegisterAddFriendIDListResp
+	7,  // 10: admin_cms.adminCMS.GetUserRegisterAddFriendIDList:output_type -> admin_cms.GetUserRegisterAddFriendIDListResp
+	7,  // [7:11] is the sub-list for method output_type
+	3,  // [3:7] is the sub-list for method input_type
+	3,  // [3:3] is the sub-list for extension type_name
+	3,  // [3:3] is the sub-list for extension extendee
+	0,  // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_admin_cms_admin_cms_proto_init() }
@@ -215,6 +604,78 @@ func file_admin_cms_admin_cms_proto_init() {
 				return nil
 			}
 		}
+		file_admin_cms_admin_cms_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddUserRegisterAddFriendIDListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_admin_cms_admin_cms_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*AddUserRegisterAddFriendIDListResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_admin_cms_admin_cms_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReduceUserRegisterAddFriendIDListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_admin_cms_admin_cms_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReduceUserRegisterAddFriendIDListResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_admin_cms_admin_cms_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserRegisterAddFriendIDListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_admin_cms_admin_cms_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserRegisterAddFriendIDListResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -222,7 +683,7 @@ func file_admin_cms_admin_cms_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_admin_cms_admin_cms_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -249,6 +710,9 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AdminCMSClient interface {
 	AdminLogin(ctx context.Context, in *AdminLoginReq, opts ...grpc.CallOption) (*AdminLoginResp, error)
+	AddUserRegisterAddFriendIDList(ctx context.Context, in *AddUserRegisterAddFriendIDListReq, opts ...grpc.CallOption) (*AddUserRegisterAddFriendIDListResp, error)
+	ReduceUserRegisterAddFriendIDList(ctx context.Context, in *ReduceUserRegisterAddFriendIDListReq, opts ...grpc.CallOption) (*ReduceUserRegisterAddFriendIDListResp, error)
+	GetUserRegisterAddFriendIDList(ctx context.Context, in *GetUserRegisterAddFriendIDListReq, opts ...grpc.CallOption) (*GetUserRegisterAddFriendIDListResp, error)
 }
 
 type adminCMSClient struct {
@@ -268,9 +732,39 @@ func (c *adminCMSClient) AdminLogin(ctx context.Context, in *AdminLoginReq, opts
 	return out, nil
 }
 
+func (c *adminCMSClient) AddUserRegisterAddFriendIDList(ctx context.Context, in *AddUserRegisterAddFriendIDListReq, opts ...grpc.CallOption) (*AddUserRegisterAddFriendIDListResp, error) {
+	out := new(AddUserRegisterAddFriendIDListResp)
+	err := c.cc.Invoke(ctx, "/admin_cms.adminCMS/AddUserRegisterAddFriendIDList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminCMSClient) ReduceUserRegisterAddFriendIDList(ctx context.Context, in *ReduceUserRegisterAddFriendIDListReq, opts ...grpc.CallOption) (*ReduceUserRegisterAddFriendIDListResp, error) {
+	out := new(ReduceUserRegisterAddFriendIDListResp)
+	err := c.cc.Invoke(ctx, "/admin_cms.adminCMS/ReduceUserRegisterAddFriendIDList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminCMSClient) GetUserRegisterAddFriendIDList(ctx context.Context, in *GetUserRegisterAddFriendIDListReq, opts ...grpc.CallOption) (*GetUserRegisterAddFriendIDListResp, error) {
+	out := new(GetUserRegisterAddFriendIDListResp)
+	err := c.cc.Invoke(ctx, "/admin_cms.adminCMS/GetUserRegisterAddFriendIDList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AdminCMSServer is the server API for AdminCMS service.
 type AdminCMSServer interface {
 	AdminLogin(context.Context, *AdminLoginReq) (*AdminLoginResp, error)
+	AddUserRegisterAddFriendIDList(context.Context, *AddUserRegisterAddFriendIDListReq) (*AddUserRegisterAddFriendIDListResp, error)
+	ReduceUserRegisterAddFriendIDList(context.Context, *ReduceUserRegisterAddFriendIDListReq) (*ReduceUserRegisterAddFriendIDListResp, error)
+	GetUserRegisterAddFriendIDList(context.Context, *GetUserRegisterAddFriendIDListReq) (*GetUserRegisterAddFriendIDListResp, error)
 }
 
 // UnimplementedAdminCMSServer can be embedded to have forward compatible implementations.
@@ -279,6 +773,15 @@ type UnimplementedAdminCMSServer struct {
 
 func (*UnimplementedAdminCMSServer) AdminLogin(context.Context, *AdminLoginReq) (*AdminLoginResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminLogin not implemented")
+}
+func (*UnimplementedAdminCMSServer) AddUserRegisterAddFriendIDList(context.Context, *AddUserRegisterAddFriendIDListReq) (*AddUserRegisterAddFriendIDListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddUserRegisterAddFriendIDList not implemented")
+}
+func (*UnimplementedAdminCMSServer) ReduceUserRegisterAddFriendIDList(context.Context, *ReduceUserRegisterAddFriendIDListReq) (*ReduceUserRegisterAddFriendIDListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReduceUserRegisterAddFriendIDList not implemented")
+}
+func (*UnimplementedAdminCMSServer) GetUserRegisterAddFriendIDList(context.Context, *GetUserRegisterAddFriendIDListReq) (*GetUserRegisterAddFriendIDListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserRegisterAddFriendIDList not implemented")
 }
 
 func RegisterAdminCMSServer(s *grpc.Server, srv AdminCMSServer) {
@@ -303,6 +806,60 @@ func _AdminCMS_AdminLogin_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AdminCMS_AddUserRegisterAddFriendIDList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddUserRegisterAddFriendIDListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminCMSServer).AddUserRegisterAddFriendIDList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/admin_cms.adminCMS/AddUserRegisterAddFriendIDList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminCMSServer).AddUserRegisterAddFriendIDList(ctx, req.(*AddUserRegisterAddFriendIDListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminCMS_ReduceUserRegisterAddFriendIDList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReduceUserRegisterAddFriendIDListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminCMSServer).ReduceUserRegisterAddFriendIDList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/admin_cms.adminCMS/ReduceUserRegisterAddFriendIDList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminCMSServer).ReduceUserRegisterAddFriendIDList(ctx, req.(*ReduceUserRegisterAddFriendIDListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminCMS_GetUserRegisterAddFriendIDList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserRegisterAddFriendIDListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminCMSServer).GetUserRegisterAddFriendIDList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/admin_cms.adminCMS/GetUserRegisterAddFriendIDList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminCMSServer).GetUserRegisterAddFriendIDList(ctx, req.(*GetUserRegisterAddFriendIDListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _AdminCMS_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "admin_cms.adminCMS",
 	HandlerType: (*AdminCMSServer)(nil),
@@ -310,6 +867,18 @@ var _AdminCMS_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AdminLogin",
 			Handler:    _AdminCMS_AdminLogin_Handler,
+		},
+		{
+			MethodName: "AddUserRegisterAddFriendIDList",
+			Handler:    _AdminCMS_AddUserRegisterAddFriendIDList_Handler,
+		},
+		{
+			MethodName: "ReduceUserRegisterAddFriendIDList",
+			Handler:    _AdminCMS_ReduceUserRegisterAddFriendIDList_Handler,
+		},
+		{
+			MethodName: "GetUserRegisterAddFriendIDList",
+			Handler:    _AdminCMS_GetUserRegisterAddFriendIDList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

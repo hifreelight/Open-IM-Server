@@ -20,7 +20,19 @@ definitions:
         type: integer
       introduction:
         type: string
-      lookMemberInfo:
+      url:
+        type: string
+      videoElem:
+        $ref: '#/definitions/Open_IM_internal_api_manage.VideoElem'
+    required:
+    - notificationFaceURL
+    - notificationName
+    - notificationType
+    - text
+    type: object
+  Open_IM_internal_api_manage.PictureBaseInfo:
+    properties:
+      height:
         type: integer
       memberCount:
         type: integer
@@ -866,12 +878,18 @@ definitions:
     type: object
   base_info.GetGroupAllMemberReq:
     properties:
+      count:
+        type: integer
       groupID:
         type: string
+      offset:
+        type: integer
       operationID:
         type: string
     required:
+    - count
     - groupID
+    - offset
     - operationID
     type: object
   base_info.GetGroupAllMemberResp:
@@ -2504,14 +2522,30 @@ definitions:
     type: object
   server_api_params.GroupKey:
     properties:
+      applyMemberFriend:
+        type: integer
       createTime:
         type: integer
       ex:
         type: string
       groupID:
         type: string
-      key:
+      groupName:
         type: string
+      groupType:
+        type: integer
+      introduction:
+        type: string
+      memberCount:
+        type: integer
+      needVerification:
+        type: integer
+      notification:
+        type: string
+      ownerUserID:
+        type: string
+      status:
+        type: integer
     type: object
   server_api_params.GroupMemberFullInfo:
     properties:

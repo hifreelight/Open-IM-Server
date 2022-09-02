@@ -4640,13 +4640,30 @@ const docTemplate = `{
                 "creatorUserID": {
                     "type": "string"
                 },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "Open_IM_internal_api_manage.OANotificationElem": {
+            "type": "object",
+            "required": [
+                "notificationFaceURL",
+                "notificationName",
+                "notificationType",
+                "text"
+            ],
+            "properties": {
                 "ex": {
                     "type": "string"
                 },
-                "faceURL": {
-                    "type": "string"
+                "fileElem": {
+                    "$ref": "#/definitions/Open_IM_internal_api_manage.FileElem"
                 },
-                "groupID": {
+                "mixType": {
+                    "type": "integer"
+                },
+                "notificationFaceURL": {
                     "type": "string"
                 },
                 "groupName": {
@@ -5934,12 +5951,20 @@ const docTemplate = `{
         "base_info.GetGroupAllMemberReq": {
             "type": "object",
             "required": [
+                "count",
                 "groupID",
+                "offset",
                 "operationID"
             ],
             "properties": {
+                "count": {
+                    "type": "integer"
+                },
                 "groupID": {
                     "type": "string"
+                },
+                "offset": {
+                    "type": "integer"
                 },
                 "operationID": {
                     "type": "string"
@@ -8401,6 +8426,9 @@ const docTemplate = `{
         "server_api_params.GroupKey": {
             "type": "object",
             "properties": {
+                "applyMemberFriend": {
+                    "type": "integer"
+                },
                 "createTime": {
                     "type": "integer"
                 },
@@ -8410,8 +8438,29 @@ const docTemplate = `{
                 "groupID": {
                     "type": "string"
                 },
-                "key": {
+                "groupName": {
                     "type": "string"
+                },
+                "groupType": {
+                    "type": "integer"
+                },
+                "introduction": {
+                    "type": "string"
+                },
+                "memberCount": {
+                    "type": "integer"
+                },
+                "needVerification": {
+                    "type": "integer"
+                },
+                "notification": {
+                    "type": "string"
+                },
+                "ownerUserID": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 }
             }
         },
