@@ -12,28 +12,28 @@
             "program": "${file}"
         },
         {
-            "name": "1",
+            "name": "1-open_im_api",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/open_im_api/main.go"
         },
         {
-            "name": "2",
+            "name": "2-open_im_cms_api",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/open_im_cms_api/main.go"
         },
         {
-            "name": "3",
+            "name": "3-open_im_user",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_user/main.go"
         },
         {
-            "name": "4",
+            "name": "4-open_im_friend",
             "type": "go",
             "request": "launch",
             "mode": "debug",
@@ -41,91 +41,91 @@
             "args": ["-port", "10120"]
         },
         {
-            "name": "5",
+            "name": "5-open_im_group",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_group/main.go"
         },
         {
-            "name": "6",
+            "name": "6-open_im_auth",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_auth/main.go"
         },
         {
-            "name": "7",
+            "name": "7-open_im_admin_cms",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_admin_cms/main.go"
         },
         {
-            "name": "8",
+            "name": "8-open_im_message_cms",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_message_cms/main.go"
         },
         {
-            "name": "9",
+            "name": "9-open_im_statistics",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_statistics/main.go"
         },
         {
-            "name": "10",
+            "name": "10-open_im_msg",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_msg/main.go"
         },
         {
-            "name": "11",
+            "name": "11-open_im_office",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_office/main.go"
         },
         {
-            "name": "12",
+            "name": "12-open_im_organization",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_organization/main.go"
         },
         {
-            "name": "13",
+            "name": "13-open_im_conversation",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_conversation/main.go"
         },
         {
-            "name": "14",
+            "name": "14-open_im_cache",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/rpc/open_im_cache/main.go"
         },
         {
-            "name": "15",
+            "name": "15-open_im_push",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/open_im_push/main.go"
         },
         {
-            "name": "16",
+            "name": "16-open_im_msg_transfer",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/open_im_msg_transfer/main.go"
         },        
         {
-            "name": "17",
+            "name": "17-open_im_sdk_server",
             "type": "go",
             "request": "launch",
             "mode": "debug",
@@ -142,14 +142,14 @@
             ]
         },
         {
-            "name": "18",
+            "name": "18-open_im_msg_gateway",
             "type": "go",
             "request": "launch",
             "mode": "debug",
             "program": "cmd/open_im_msg_gateway/main.go"
         },
         {
-            "name": "19",
+            "name": "19-open_im_demo",
             "type": "go",
             "request": "launch",
             "mode": "debug",
@@ -161,25 +161,25 @@
         {
             "name": "Compound",
             "configurations": [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19"
+                "1-open_im_api",
+                "2-open_im_cms_api",
+                "3-open_im_user",
+                "4-open_im_friend",
+                "5-open_im_group",
+                "6-open_im_auth",
+                "7-open_im_admin_cms",
+                "8-open_im_message_cms",
+                "9-open_im_statistics",
+                "10-open_im_msg",
+                "11-open_im_office",
+                "12-open_im_organization",
+                "13-open_im_conversation",
+                "14-open_im_cache",
+                "15-open_im_push",
+                "16-open_im_msg_transfer",
+                "17-open_im_sdk_server",
+                "18-open_im_msg_gateway",
+                "19-open_im_demo"
             ],
             "presentation": {
                 "hidden": false,

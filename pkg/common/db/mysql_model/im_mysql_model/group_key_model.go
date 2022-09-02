@@ -2,8 +2,8 @@ package im_mysql_model
 
 import (
 	"Open_IM/pkg/common/db"
-	"Open_IM/pkg/utils"
 	"strings"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -18,7 +18,7 @@ import (
 
 func InsertIntoGroupKey(toInsertInfo db.GroupKey) error {
 
-	toInsertInfo.CreateTime = utils.UnixSecondToTime(0)
+	toInsertInfo.CreateTime = time.Now()
 	// generate key
 	_uuid, _ := uuid.NewUUID()
 	key := strings.ReplaceAll(_uuid.String(), "-", "")

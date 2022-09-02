@@ -560,7 +560,7 @@ func (s *groupServer) GetGroupMemberList(ctx context.Context, req *pbGroup.GetGr
 func (s *groupServer) GetGroupKeyList(ctx context.Context, req *pbGroup.GetGroupKeyListReq) (*pbGroup.GetGroupKeyListResp, error) {
 	log.NewInfo(req.OperationID, "GetGroupKeyList args ", req.String())
 	var resp pbGroup.GetGroupKeyListResp
-	// TODO: in group
+	// in group
 	opInfo, err := imdb.GetGroupMemberInfoByGroupIDAndUserID(req.GroupID, req.OpUserID)
 	if opInfo == nil {
 		return &resp, nil
@@ -585,11 +585,12 @@ func (s *groupServer) GetGroupKeyList(ctx context.Context, req *pbGroup.GetGroup
 
 	for _, v := range keyList {
 		var node open_im_sdk.GroupKey
-		utils.CopyStructFields(&node, &v)
+		utils.CopyStructFields(node, v)
 
 		// encrypt
 		serializedCiphertext := crypto.Encrypt(userInfo.PubKey, node.Key, "")
 		node.Key = hex.EncodeToString(serializedCiphertext)
+		node.CreateTime = uint32(v.CreateTime.Unix())
 		resp.KeyList = append(resp.KeyList, &node)
 	}
 	resp.ErrCode = 0

@@ -58,7 +58,7 @@ message GroupMemberFullInfo {
 message GroupKey {
   string groupID = 1 ;
   string key = 2 ;
-  int32 createTime = 4;
+  uint32 createTime = 4;
   string ex = 3;
 }
 
