@@ -402,3 +402,32 @@ func AlterGroupInfo(c *gin.Context) {
 	}
 	openIMHttp.RespHttp200(c, constant.OK, nil)
 }
+
+func GetGroupKeyList(c *gin.Context) {
+	// var (
+	// 	req   cms_api_struct.GetGroupKeyRequest
+	// 	resp  cms_api_struct.GetGroupKeyResponse
+	// 	reqPb pbGroup.GetGroupKeyListReq
+	// )
+	// 	if err := c.ShouldBindQuery(&req); err != nil {
+	// 	log.NewError(reqPb.OperationID, utils.GetSelfFuncName(), "ShouldBindQuery failed ", err.Error())
+	// 	openIMHttp.RespHttp200(c, constant.ErrArgs, nil)
+	// 	return
+	// }
+	// reqPb.OperationID = utils.OperationIDGenerator()
+	// log.NewInfo(reqPb.OperationID, utils.GetSelfFuncName(), "req: ", req)
+	// reqPb.Pagination = &commonPb.RequestPagination{
+	// 	PageNumber: int32(req.PageNumber),
+	// 	ShowNumber: int32(req.ShowNumber),
+	// }
+	// reqPb.GroupID = req.GroupID
+	// etcdConn := getcdv3.GetDefaultConn(config.Config.Etcd.EtcdSchema, strings.Join(config.Config.Etcd.EtcdAddr, ","), config.Config.RpcRegisterName.OpenImGroupName, reqPb.OperationID)
+	// if etcdConn == nil {
+	// 	errMsg := reqPb.OperationID + "getcdv3.GetDefaultConn == nil"
+	// 	log.NewError(reqPb.OperationID, errMsg)
+	// 	c.JSON(http.StatusInternalServerError, gin.H{"errCode": 500, "errMsg": errMsg})
+	// 	return
+	// }
+	// client := pbGroup.NewGroupClient(etcdConn)
+
+}

@@ -4,13 +4,16 @@ import (
 	api "Open_IM/pkg/base_info"
 	"Open_IM/pkg/common/config"
 	"Open_IM/pkg/common/constant"
+	rocksCache "Open_IM/pkg/common/db/rocks_cache"
 	"Open_IM/pkg/common/log"
 	"Open_IM/pkg/common/token_verify"
 	"Open_IM/pkg/grpc-etcdv3/getcdv3"
 	rpc "Open_IM/pkg/proto/group"
 	open_im_sdk "Open_IM/pkg/proto/sdk_ws"
 	"Open_IM/pkg/utils"
+	crypto "Open_IM/pkg/utils/crypto"
 	"context"
+	"encoding/hex"
 
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"google.golang.org/grpc"
@@ -1363,7 +1366,105 @@ func GetGroupKeyList(c *gin.Context) {
 	}
 	client := rpc.NewGroupClient(etcdConn)
 
+	// in group
+	isJoinedGroupReq := &rpc.IsJoinedGroupReq{}
+	isJoinedGroupReq.GroupID = req.GroupID
+	isJoinedGroupReq.OpUserID = req.OpUserID
+	isJoinedGroupReq.OperationID = req.OperationID
+
+	RpcIsJoinedResp, err := client.GetIsJoinedGroup(context.Background(), isJoinedGroupReq)
+
+	if err != nil {
+		log.NewError(req.OperationID, "GetGroupKeyList failed, ", err.Error(), req.String())
+		c.JSON(http.StatusInternalServerError, gin.H{"errCode": 500, "errMsg": err.Error()})
+		return
+	}
+
+	if !RpcIsJoinedResp.Is {
+		c.JSON(http.StatusInternalServerError, gin.H{"errCode": 400, "errMsg": "Your no in the group"})
+		return
+	}
+
 	RpcResp, err := client.GetGroupKeyList(context.Background(), req)
+	if err != nil {
+		log.NewError(req.OperationID, "GetGroupKeyList failed, ", err.Error(), req.String())
+		c.JSON(http.StatusInternalServerError, gin.H{"errCode": 500, "errMsg": err.Error()})
+		return
+	}
+
+	var userInfo open_im_sdk.UserInfo
+	user, err := rocksCache.GetUserInfoFromCache(req.OpUserID)
+	if err != nil {
+		log.NewError(req.OperationID, "GetGroupKeyList GetUserByUserID failed ", err.Error(), req.OpUserID)
+		c.JSON(http.StatusInternalServerError, gin.H{"errCode": 500, "errMsg": err.Error()})
+		return
+	}
+	utils.CopyStructFields(&userInfo, user)
+
+	for i, v := range RpcResp.KeyList {
+		// encrypt
+		serializedCiphertext := crypto.Encrypt(userInfo.PubKey, v.Key, "")
+		RpcResp.KeyList[i].Key = hex.EncodeToString(serializedCiphertext)
+
+	}
+
+	keyListResp := api.GetGroupKeyListResp{CommResp: api.CommResp{ErrCode: RpcResp.ErrCode, ErrMsg: RpcResp.ErrMsg}, KeyList: RpcResp.KeyList}
+	keyListResp.Data = jsonData.JsonDataList(keyListResp.KeyList)
+
+	log.NewInfo(req.OperationID, "GetGroupKeyList api return ", keyListResp)
+	c.JSON(http.StatusOK, keyListResp)
+
+}
+
+// @Summary 获取最近三天群密钥列表(无加密)
+// @Description 获取群密钥列表
+// @Tags 群组相关
+// @ID GetNoEncryptGroupKeyList
+// @Accept json
+// @Param req body api.GetNoEncryptGroupKeyListReq true "GroupID为要获取群成员的群ID"
+// @Produce json
+// @Success 0 {object} api.GetGroupKeyListResp{data=[]open_im_sdk.GroupKey}
+// @Failure 500 {object} api.Swagger500Resp "errCode为500 一般为服务器内部错误"
+// @Failure 400 {object} api.Swagger400Resp "errCode为400 一般为参数输入错误, token未带上等"
+// @Router /group/get_no_encrypt_group_key_list [post]
+func GetNoEncryptGroupKeyList(c *gin.Context) {
+	params := api.GetNoEncryptGroupKeyListReq{}
+	if err := c.BindJSON(&params); err != nil {
+		log.NewError("0", "BindJSON failed ", err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{"errCode": 400, "errMsg": err.Error()})
+		return
+	}
+	req := &rpc.GetNoEncryptGroupKeyListReq{}
+	utils.CopyStructFields(req, &params)
+	_req := &rpc.GetGroupKeyListReq{}
+	utils.CopyStructFields(_req, &req)
+
+	succ := false
+	// secret
+	for i, adminID := range config.Config.Manager.AppManagerUid {
+		if adminID == req.AdminName && config.Config.Manager.Secrets[i] == req.Secret {
+			succ = true
+			break
+		}
+	}
+
+	if !succ {
+		c.JSON(http.StatusBadRequest, gin.H{"errCode": 400, "errMsg": "adminName or secret err"})
+		return
+	}
+
+	log.NewInfo(req.OperationID, "GetNoEncryptGroupKeyList args ", req.String())
+
+	etcdConn := getcdv3.GetDefaultConn(config.Config.Etcd.EtcdSchema, strings.Join(config.Config.Etcd.EtcdAddr, ","), config.Config.RpcRegisterName.OpenImGroupName, req.OperationID)
+	if etcdConn == nil {
+		errMsg := req.OperationID + "getcdv3.GetConn == nil"
+		log.NewError(req.OperationID, errMsg)
+		c.JSON(http.StatusInternalServerError, gin.H{"errCode": 500, "errMsg": errMsg})
+		return
+	}
+	client := rpc.NewGroupClient(etcdConn)
+
+	RpcResp, err := client.GetGroupKeyList(context.Background(), _req)
 	if err != nil {
 		log.NewError(req.OperationID, "GetGroupKeyList failed, ", err.Error(), req.String())
 		c.JSON(http.StatusInternalServerError, gin.H{"errCode": 500, "errMsg": err.Error()})

@@ -16,10 +16,7 @@ import (
 	pbConversation "Open_IM/pkg/proto/conversation"
 	pbGroup "Open_IM/pkg/proto/group"
 	open_im_sdk "Open_IM/pkg/proto/sdk_ws"
-	sdkws "Open_IM/pkg/proto/sdk_ws"
 	pbUser "Open_IM/pkg/proto/user"
-	crypto "Open_IM/pkg/utils/crypto"
-	"encoding/hex"
 
 	"Open_IM/pkg/utils"
 	"context"
@@ -557,14 +554,28 @@ func (s *groupServer) GetGroupMemberList(ctx context.Context, req *pbGroup.GetGr
 	return &resp, nil
 }
 
+func (s *groupServer) GetIsJoinedGroup(ctx context.Context, req *pbGroup.IsJoinedGroupReq) (*pbGroup.IsJoinedGroupResp, error) {
+	var resp pbGroup.IsJoinedGroupResp
+	opInfo, err := imdb.GetGroupMemberInfoByGroupIDAndUserID(req.GroupID, req.OpUserID)
+	if err != nil {
+		resp.ErrCode = constant.ErrDB.ErrCode
+		resp.ErrMsg = constant.ErrDB.ErrMsg
+		resp.Is = false
+		log.NewError(req.OperationID, "GetIsJoinedGroup failed,", req.GroupID, req.OpUserID)
+		return &resp, nil
+	}
+	if opInfo == nil {
+		resp.Is = false
+		return &resp, nil
+	}
+	resp.Is = true
+	return &resp, nil
+}
+
 func (s *groupServer) GetGroupKeyList(ctx context.Context, req *pbGroup.GetGroupKeyListReq) (*pbGroup.GetGroupKeyListResp, error) {
 	log.NewInfo(req.OperationID, "GetGroupKeyList args ", req.String())
 	var resp pbGroup.GetGroupKeyListResp
-	// in group
-	opInfo, err := imdb.GetGroupMemberInfoByGroupIDAndUserID(req.GroupID, req.OpUserID)
-	if opInfo == nil {
-		return &resp, nil
-	}
+
 	keyList, err := imdb.GetGroupKeyListByGroupID(req.GroupID, int(req.Start), int(req.Limit))
 	if err != nil {
 		resp.ErrCode = constant.ErrDB.ErrCode
@@ -573,23 +584,12 @@ func (s *groupServer) GetGroupKeyList(ctx context.Context, req *pbGroup.GetGroup
 		return &resp, nil
 	}
 
-	var userInfo sdkws.UserInfo
-	user, err := rocksCache.GetUserInfoFromCache(req.OpUserID)
-	if err != nil {
-		resp.ErrCode = constant.ErrDB.ErrCode
-		resp.ErrMsg = constant.ErrDB.ErrMsg
-		log.NewError(req.OperationID, "GetUserByUserID failed ", err.Error(), req.OpUserID)
-		return &resp, nil
-	}
-	utils.CopyStructFields(&userInfo, user)
-
 	for _, v := range keyList {
 		var node open_im_sdk.GroupKey
 		utils.CopyStructFields(node, v)
 
-		// encrypt
-		serializedCiphertext := crypto.Encrypt(userInfo.PubKey, node.Key, "")
-		node.Key = hex.EncodeToString(serializedCiphertext)
+		node.GroupID = v.GroupID
+		node.Key = v.Key
 		node.CreateTime = uint32(v.CreateTime.Unix())
 		resp.KeyList = append(resp.KeyList, &node)
 	}

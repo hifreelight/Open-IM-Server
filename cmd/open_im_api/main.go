@@ -110,6 +110,7 @@ func main() {
 		groupRouterGroup.POST("/set_group_member_nickname", group.SetGroupMemberNickname)
 		groupRouterGroup.POST("/set_group_member_info", group.SetGroupMemberInfo)
 		groupRouterGroup.POST("/get_group_key_list", group.GetGroupKeyList)
+		groupRouterGroup.POST("/get_no_encrypt_group_key_list", group.GetNoEncryptGroupKeyList)
 		groupRouterGroup.POST("/get_group_abstract_info", group.GetGroupAbstractInfo)
 		//groupRouterGroup.POST("/get_group_all_member_list_by_split", group.GetGroupAllMemberListBySplit)
 	}

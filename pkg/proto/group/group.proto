@@ -140,6 +140,16 @@ message GetGroupMemberListResp {
   int32 nextSeq = 4;
 }
 
+message GetNoEncryptGroupKeyListReq {
+  string GroupID = 1;
+  string OpUserID = 2;  //No verification permission
+  string OperationID = 3;
+  int32 start = 4;
+  int32 limit = 5;
+  string AdminName = 6;
+  string Secret = 7;
+}
+
 message GetGroupKeyListReq {
   string GroupID = 1;
   string OpUserID = 2;  //No verification permission
@@ -148,10 +158,22 @@ message GetGroupKeyListReq {
   int32 limit = 5;
 }
 
+message IsJoinedGroupReq {
+  string GroupID = 1;
+  string OpUserID = 2;  //No verification permission
+  string OperationID = 3;
+}
+
 message GetGroupKeyListResp {
   int32   ErrCode = 1;
   string  ErrMsg = 2;
   repeated server_api_params.GroupKey keyList = 3;
+}
+
+message IsJoinedGroupResp {
+  int32   ErrCode = 1;
+  string  ErrMsg = 2;
+  bool is = 3;
 }
 
 
@@ -454,6 +476,7 @@ service group{
   rpc getGroupMemberList(GetGroupMemberListReq) returns(GetGroupMemberListResp);
   rpc getGroupMembersInfo(GetGroupMembersInfoReq) returns(GetGroupMembersInfoResp);
   rpc getGroupKeyList(GetGroupKeyListReq) returns(GetGroupKeyListResp);
+  rpc getIsJoinedGroup(IsJoinedGroupReq) returns(IsJoinedGroupResp);
   rpc kickGroupMember(KickGroupMemberReq) returns (KickGroupMemberResp);
   rpc getJoinedGroupList(GetJoinedGroupListReq) returns (GetJoinedGroupListResp);
   rpc inviteUserToGroup(InviteUserToGroupReq) returns (InviteUserToGroupResp);

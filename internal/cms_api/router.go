@@ -84,5 +84,10 @@ func NewGinRouter() *gin.Engine {
 		messageCMSRouterGroup.POST("/mass_send_message", messageCMS.MassSendMassage)
 		messageCMSRouterGroup.POST("/withdraw_message", messageCMS.WithdrawMessage)
 	}
+	r3 := router.Group("")
+	adminGroupRouterGroup := r3.Group("/group")
+	{
+		adminGroupRouterGroup.GET("/get_group_key_list", group.GetGroupKeyList)
+	}
 	return baseRouter
 }

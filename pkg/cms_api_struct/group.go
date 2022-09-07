@@ -151,6 +151,23 @@ type RemoveGroupMembersResponse struct {
 	GroupMemberOperateResponse
 }
 
+type GetGroupKeyRequest struct {
+	GroupID string `form:"groupID" binding:"required"`
+	RequestPagination
+}
+
+type GroupKeyResponse struct {
+	GroupID       string `json:"groupID"`
+	Ex            string `json:"ex"`
+	MuteEndTime   uint32 `json:"muteEndTime"`
+	InviterUserID string `json:"inviterUserID"`
+}
+
+type GetGroupKeyResponse struct {
+	GroupKeys []GroupKeyResponse `json:"groupKeys"`
+	ResponsePagination
+}
+
 type AlterGroupInfoRequest struct {
 	GroupID      string `json:"groupID"`
 	GroupName    string `json:"groupName"`

@@ -76,10 +76,20 @@ type GetGroupKeyListReq struct {
 	Limit       int32  `json:"limit"`
 	OperationID string `json:"operationID"`
 }
+
+type GetNoEncryptGroupKeyListReq struct {
+	AdminName   string `json:"adminName"`
+	Secret      string `json:"secret"`
+	GroupID     string `json:"groupID"`
+	Start       int32  `json:"start"`
+	Limit       int32  `json:"limit"`
+	OperationID string `json:"operationID"`
+}
+
 type GetGroupKeyListResp struct {
 	CommResp
 	KeyList []*open_im_sdk.GroupKey  `json:"-"`
-	Data       []map[string]interface{} `json:"data" swaggerignore:"true"`
+	Data    []map[string]interface{} `json:"data" swaggerignore:"true"`
 }
 
 type GetGroupAllMemberReq struct {
